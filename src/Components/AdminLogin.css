@@ -1,0 +1,26 @@
+.buttonTest{
+width:150px;
+border-radius:10%;
+margin-top:30px;
+}
+
+.LabelHeading{
+    color:darkblue;
+    line-height: 20px;
+    text-transform: uppercase;
+    
+
+
+
+
+
+}
+
+.Container{
+display : grid;
+margin:50px;
+
+
+
+
+}

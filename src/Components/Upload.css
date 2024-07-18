@@ -1,0 +1,34 @@
+.Test{
+margin:20px;
+}
+
+.upload-image-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.tester {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.test-item {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
