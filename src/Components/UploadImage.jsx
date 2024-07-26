@@ -64,6 +64,7 @@ const UploadImage = () => {
             const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
             console.log('Fetched Data:', allData); // Debugging line
             setData(allData);
+
         } catch (error) {
             console.error('Error fetching data from Firestore:', error);
         }
@@ -73,7 +74,7 @@ const UploadImage = () => {
         try {
             // Delete the document from Firestore
             await deleteDoc(doc(db, 'textData', id));
-            
+
             // Delete the image from Firebase Storage
             const storage = getStorage(app);
             const storageRef = ref(storage, imageUrl);
@@ -89,6 +90,12 @@ const UploadImage = () => {
     useEffect(() => {
         getData();
     }, []);
+    
+    useEffect(() => {
+        setContextData({
+            ...contextData, imageData: data
+        })
+    }, [data]);
 
     return (
         <div style={{ backgroundImage: `url(${background})` }}>

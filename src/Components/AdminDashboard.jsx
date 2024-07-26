@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { getDoc, doc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { store } from '../App';
+import './AdminDashboard.css';
+import ProfilePic from './ProfilePic';
 
 
 
@@ -29,7 +31,10 @@ const AdminDashboard = () => {
                         
                         const userInfo=JSON.stringify(docSnap.data())
 
-                    localStorage.setItem('user_details', userInfo)
+                    localStorage.setItem('user_details', userInfo);
+                    
+                    Navigate('/dashboard');
+                    
 
                     } else {
                         console.log("User document does not exist");
@@ -52,6 +57,8 @@ const AdminDashboard = () => {
                 ...contextData,
                 login:false
             });
+            localStorage.removeItem('loggedIn', 'false')
+            
             Navigate('/login');
         }
         catch (error) {
@@ -79,21 +86,20 @@ const AdminDashboard = () => {
 
     return (
 
-        <div>
+        <div className='dashboardmain'>
+            <div><h3> Welcome {userDetails?.firstName}</h3></div>
+            <div>
+            <button className='btn btn-primary' onClick={handleLogOut} >Log Out</button>
+            <button className='btn btn-secondary' onClick={imageUrl} >Gallary</button>
+            </div>
+            <div className='pic'>
             {userDetails ? (
                 <>
-                    <h3> Welcome {userDetails.firstName}</h3>
-                    <div>
-                        <p>Email: {userDetails.email}</p>
-                        <p>FirstName: {userDetails.firstName}</p>
-                        <p>LastName: {userDetails.lastName}</p>
+                    
+                   
+                    <ProfilePic/>
 
-
-
-                    </div>
-
-                    <button className='btn btn-primary' onClick={handleLogOut} >Log Out</button>
-                    <button className='btn btn-secondary' onClick={imageUrl} >Gallary</button>
+                  
                     
                     
 
@@ -108,7 +114,8 @@ const AdminDashboard = () => {
                 <p>Loading</p>
 
             )}
-
+            </div>
+           
         </div>
     )
 }

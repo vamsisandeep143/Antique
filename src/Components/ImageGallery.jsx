@@ -3,6 +3,11 @@ import { store } from '../App';
 import Image10 from '../Assets/Img10.jpg'
 import Image6 from '../Assets/Img6.jpg'
 import Image7 from '../Assets/Img9.jpg'
+import OwlCarousel from 'react-owl-carousel';
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+import '../index.css'
+
 
 const ImageGallery = () => {
     const [contextData, setContextData] = useContext(store);
@@ -26,37 +31,53 @@ const ImageGallery = () => {
                     <button style={{paddingInline:'15px'}} disabled={count === images?.length - 1} onClick={() => setCount(count + 1)}>+</button>
                 </div>
             </div> */}
-
-
-            <div id="carouselExampleInterval" className="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleInterval" className="carousel slide" data-bs-ride="carousel" style={{width:'92%',margin:'auto',}}>
                 <div className="carousel-inner">
-                    <div className="carousel-item active" data-bs-interval="4000">
-                        <img src={Image10} height={'500px'} className="d-block w-100" alt="" />
+                    <div className="carousel-item active" data-bs-interval="3000">
+                        <img src={Image10} height={'600px'} className="d-block w-100" alt="" />
                     </div>
-                    <div className="carousel-item" data-bs-interval="4000">
-                        <img src={Image6} height={'500px'} className="d-block w-100" alt="..." />
+                    <div className="carousel-item" data-bs-interval="3000">
+                        <img src={Image6} height={'600px'} className="d-block w-100" alt="..." />
                     </div>
-                    <div className="carousel-item" data-bs-interval="4000">
-                        <img src={Image7} height={'500px'} className="d-block w-100" alt="..." />
+                    <div className="carousel-item" data-bs-interval="3000">
+                        <img src={Image7} height={'600px'} className="d-block w-100" alt="..." />
                     </div>
                 </div>
-                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev" style={{width:'30px',height:'70px',padding:'10px',backgroundColor:'#ae8c83',top:'auto', bottom:'50%',opacity:99,left:'-2%',borderRadius:'5px'}}>
+                    {/* <span > */}
+                    {/* <span className="carousel-control-prev-icon" aria-hidden="true" style={{width:'50px',height:'50px',padding:'10px'}}> */}
+                    <i class="fa-solid fa-chevron-left fa-2x" style={{color:'#fff'}}></i>
+                    
                     <span className="visually-hidden">Previous</span>
                 </button>
-                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next" style={{width:'30px',height:'70px',padding:'10px',backgroundColor:'#ae8c83',top:'auto', bottom:'50%',opacity:99,right:'-2%',borderRadius:'5px'}}>
+                    {/* <span className="carousel-control-next-icon" aria-hidden="true" style={{color:'red'}}></span> */}
+                    <i class="fa-solid fa-chevron-right fa-2x" style={{color:'#fff'}}></i>
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
-
-
-
-
-
-
-        </>
-    )
+        {/* <OwlCarousel
+          className="owl-theme"
+          loop
+          margin={10}
+          nav={true}
+          dots={false}
+          autoplay={true}
+          autoplayTimeout={5000}
+          items={1}
+          height="200px"
+        >
+          {images.map((item, index) => {
+            return (
+              <div>
+                <img src={item} alt={index} style={{height:'400px'}}/>
+              </div>
+            );
+          })}
+        </OwlCarousel> */}
+        ;
+      </>
+    );
 }
 
 export default ImageGallery

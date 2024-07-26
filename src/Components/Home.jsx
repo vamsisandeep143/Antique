@@ -6,6 +6,8 @@ import photo from '../Assets/background.jpg'
 import ImageGallery from './ImageGallery';
 import CardCousol from './CardCousol';
 import ContactUs from './ContactUs';
+import Footer from './Footer';
+import Magnify from './Magnify';
 
 
 // const Styleddiv = Styled.div`
@@ -25,28 +27,29 @@ import ContactUs from './ContactUs';
 
 const Styleddiv = Styled.div`
 padding:1rem;
+margin:16px
 `;
 
 const Styledh1 = Styled.h3`
-font-family:'Zen Antique Soft', serif;
+// font-family:'Zen Antique Soft', serif;
+font-family: 'Roboto', sans-serif;
 font-weight:600;
 color:#767171;
-
+text-align:center
 
 `;
 
 const Home = () => {
     return (
         <>
-            <div>
+            <div style={{backgroundColor:'#f6f3f2'}}>
          <ImageGallery/>
             <Styleddiv><Styledh1>Welcome to Creative Collection
 Discover Timeless Beauty
 
 Since 2014, Creative Collection has been your trusted source for exquisite antiques. Our curated selection features timeless pieces crafted from brass and bronze, along with stunning furniture and captivating paintings. Each item in our collection tells a story and adds a touch of history and elegance to your space.</Styledh1></Styleddiv>
             <CardCousol/>
-            <ContactUs/>
-
+            
             </div>
         </>
     );

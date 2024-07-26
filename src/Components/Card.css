@@ -9,3 +9,10 @@
       display: block;
     }
   }
+
+.imageMagnifier{
+  width: 300px;
+  /* height: 350px; */
+  border: 1px solid #d3d3d3;
+  background-color: #fff;
+}

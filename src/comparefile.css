@@ -1,0 +1,45 @@
+/* custom-owl-carousel.css */
+.owl-nav .owl-prev,
+.owl-nav .owl-next {
+  background-color: #ae8c83 !important; /* Background color */
+  border-radius: 5px; 
+  width: 30px; 
+  height: 70px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white !important;
+  border: none; 
+  outline: none; 
+  font-size: xx-large;
+  /* border-radius: 50% !important; */
+}
+
+.owl-nav .owl-prev {
+  left: -30px; 
+  font-size: xx-large !important;
+}
+
+.owl-nav .owl-next {
+  right: -30px;
+  margin-bottom: 10px !important;
+  font-size: xx-large !important; 
+}
+
+.owl-nav .owl-prev:hover,
+.owl-nav .owl-next:hover {
+  background-color: #4a3a34; 
+}
+
+.owl-nav .owl-prev:focus,
+.owl-nav .owl-next:focus {
+  outline: none;
+}
+
+.owl-nav .owl-prev i,
+.owl-nav .owl-next i {
+  font-size: 2em !important; 
+}

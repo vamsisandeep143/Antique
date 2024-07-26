@@ -1,0 +1,17 @@
+.dashboardmain{
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 10px;
+grid-auto-rows: minmax(100px, auto);
+}
+
+.pic{
+width:300px;
+height:200px;
+border:2px solid #f1faff;
+border-radius: 10px;
+padding-left:90px;
+padding-top:50px;
+
+
+}

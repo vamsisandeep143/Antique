@@ -1,0 +1,21 @@
+.avatar{
+vertical-align: middle;
+border-radius: 50%;
+border-width: 5px;
+border-color:grey;
+border-style:outset;
+}
+
+.test{
+
+    display:grid;
+
+}
+
+tested{
+    position: 'relative';
+    display: 'inline-block'
+
+
+
+}
