@@ -3,6 +3,81 @@
     max-width: 500px;
 }
 .Verticalline{
-    border-left: 2px solid #575c4b;
-    height: 250px;
+  border: 2px solid #d3d3d3;
+  height: 250px;
+  width: 5px;
+  max-width: 5px;
+  margin: 0 30px;
+  padding: 0;
 }
+
+.contact-page{
+  max-width: 80%;
+  margin: 0 auto;
+  background: #f9f9f9;
+  padding: 60px 60px;
+}
+.page-title{
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.custom-btn-primary{
+  background-color: rgb(56, 41, 37) !important;
+  font-size: 14px !important;
+  text-transform: capitalize !important;
+}
+body{
+  font-size: 14px;
+}
+
+.custom-input label, 
+.custom-input input {
+  font-size: 16px;
+}
+
+/* //social-content */
+.social-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 0;
+}
+.custom-social-icons{
+  color: rgb(56, 41, 37) !important;
+  border:1px solid rgb(56, 41, 37) !important;
+  padding: 5px 10px;
+  border-radius: .25rem;
+  margin: 0 10px;
+}
+.custom-social-icons:hover{    
+  color: #ffffff !important;
+  border:1px solid rgb(56, 41, 37) !important;
+  background-color: rgb(56, 41, 37) !important;
+}
+.social-content .tel{
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  color: rgb(56, 41, 37);
+  text-decoration: none;
+}
+.social-content .tel:hover{
+  text-decoration: underline;
+}
+.devider{
+  margin-bottom: 20px;
+  text-align: center;
+}
+.devider .heading{
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  color: rgb(56, 41, 37);
+}
+/* //social-content */

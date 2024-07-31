@@ -66,17 +66,18 @@ const ContactUs = () => {
   };
 
   return (
+    <section className="contact-page">
     <div className="container">
       <div className="row mt-4">
         <div className="col-12">
-          <h1 className="text-center">Contact Card</h1>
+        <h1 className="page-title">Contact Card</h1>
         </div>
         <h3 className="col-6 mt-4">SEND US A MESSAGE</h3>
         <div className="row">
           <div className="col-6">
             <form ref={form} onSubmit={postData}>
               <TextField
-                className="w-100 mt-4"
+                className="w-100 mt-4 custom-input"
                 id="outlined-basic"
                 name="name"
                 label="Name"
@@ -86,7 +87,7 @@ const ContactUs = () => {
                 value={user.name}
               />
               <TextField
-                className="w-100 mt-4"
+                className="w-100 mt-4 custom-input"
                 id="outlined-basic"
                 label="Email Address"
                 name="email"
@@ -102,40 +103,53 @@ const ContactUs = () => {
                 label="Feedback"
                 multiline
                 rows={4}
-                className="w-100 mt-4"
+                className="w-100 mt-4 custom-input"
                 value={user.feedback}
                 onChange={getDataFromUser}
                 placeholder="Type Message here ....."
               />
-              <Button type="submit" className="mt-4" variant="contained" endIcon={<SendIcon />}>
+              <Button type="submit" className="mt-4 custom-btn-primary" variant="contained" endIcon={<SendIcon />}>
                 Send
               </Button>
             </form>
             <ToastContainer />
           </div>
           <div className="col Verticalline"></div>
-          <div className="col-5">
-            <h3 className="m-4">Social Connect</h3>
-            <StyledAnchor className="m-4" href="https://wa.me/9491118102?text=Hello%2C%20Srinivas!" target="_blank">
+            <div className="col-5">
+              <section className="social-content">
+                <h3 className="m-4">Social Connect</h3>
+                <div className="d-flex align-items-center justify-content-center">
+            <StyledAnchor className="custom-social-icons" href="https://wa.me/9491118102?text=Hello%2C%20Srinivas!" target="_blank">
               <i className="fa fa-whatsapp" aria-hidden="true"></i>
             </StyledAnchor>
-            <StyledAnchor className="m-4" href="https://www.instagram.com/vangara_srinivas/" target="_blank">
+            <StyledAnchor className="custom-social-icons" href="https://www.instagram.com/vangara_srinivas/" target="_blank">
               <i className="fa-brands fa-facebook-f"></i>
             </StyledAnchor>
-            <StyledAnchor className="m-4" href="https://www.linkedin.com/in/vangara-srinivas-b2a983127/" target="_blank">
+            <StyledAnchor className="custom-social-icons" href="https://www.linkedin.com/in/vangara-srinivas-b2a983127/" target="_blank">
               <i className="fa-brands fa-instagram"></i>
             </StyledAnchor>
-            <StyledAnchor className="m-4" href="https://github.com/vangarasrinivas?tab=repositories" target="_blank">
+            <StyledAnchor className="custom-social-icons" href="https://github.com/vangarasrinivas?tab=repositories" target="_blank">
               <i className="fa-brands fa-twitter"></i>
             </StyledAnchor>
-            <h3 className="m-4">Through Call</h3>
-            <h4 className="m-4">416 887 2485</h4>
-            <h3 className="m-4">Business Address</h3>
-            <h4 className="m-4">3278 Tremaine Road, Burlington ON,L7M0X9</h4>
-          </div>
+            </div>
+                <div className="devider mt-4">
+                  <h3 className="heading">Through Call</h3>
+                  <a href="tel:+1 416 887 2485" className="tel">
+                    416 887 2485
+                  </a>
+                </div>
+                <div className="devider">
+                  <h3 className="heading">Business Address</h3>
+                  <h4 className="tel">
+                    3278 Tremaine Road, Burlington, ON L7M 0X9
+                  </h4>
+                </div>
+              </section>
         </div>
       </div>
-    </div>
+      </div>
+      </div>    
+    </section>
   );
 };
 
