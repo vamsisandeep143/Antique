@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Styled from 'styled-components';
 
 const Styleddiv = Styled.div`
@@ -21,12 +21,31 @@ border-radius:10px;
 
 `;
 const Login = () => {
-  return (
-    <Styleddiv><StyledBtn variant='contained'>Sign In</StyledBtn>
-    <StyledBtn variant='contained'>Sign Up</StyledBtn>
-    
-    </Styleddiv>
+  const [userSignIn,SetUserSignIn] = useState();
+  const test = localStorage.getItem('loggedIn');
+  useEffect(()=>{
+    if(test){
+      SetUserSignIn(false)
+    }
+  },[test])
+  console.log(test,'test');
 
+  return (
+    <>
+      {
+        !userSignIn ? (
+          <Styleddiv><StyledBtn variant='contained'>Sign In</StyledBtn>
+          <StyledBtn variant='contained'>Sign Up</StyledBtn>
+      </Styleddiv>
+        ):
+        (
+          <StyledBtn variant='contained'>LogOut</StyledBtn>
+        )
+      }
+    </>
+    
+    
+    
   )
 }
 

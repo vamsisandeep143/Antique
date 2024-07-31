@@ -131,7 +131,7 @@ const ContactUs = () => {
             <h3 className="m-4">Through Call</h3>
             <h4 className="m-4">416 887 2485</h4>
             <h3 className="m-4">Business Address</h3>
-            <h4 className="m-4">3278 Tremaine Road, Burlington, ON L7M 0X9</h4>
+            <h4 className="m-4">3278 Tremaine Road, Burlington ON,L7M0X9</h4>
           </div>
         </div>
       </div>

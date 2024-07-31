@@ -1,5 +1,6 @@
-import React, { useContext,useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import React, { useContext,useEffect,useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 import Styled from 'styled-components';
 import { store } from '../App';
 import video from '../Assets/logo.mp4';
@@ -12,6 +13,7 @@ import ContactUs from './ContactUs';
 import TestToast from './TestToast';
 import { Menu, MenuItem, Box, IconButton } from '@mui/material';
 import styled from '@emotion/styled';
+import { auth } from './Firebase';
 
 const StyledNav = Styled.nav`
 display:flex;
@@ -23,6 +25,14 @@ const StyledDiv = Styled.div`
 position:sticky;
 top:0;
 z-index:999;
+
+`;
+
+const StyledBtn = Styled(Button)`
+width : 100px;
+height : 20px;
+margin:10px !important;
+border-radius:10px;
 
 `;
 
@@ -117,6 +127,37 @@ const Navbar = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    
+
+    const [userSignIn,SetUserSignIn] = useState();
+    const test = localStorage.getItem('loggedIn');
+    useEffect(()=>{
+      if(test){
+        SetUserSignIn(true)
+      }else{
+        SetUserSignIn(false)
+      }
+    },[test])
+    console.log(test,'test');
+    const handleLogout=async()=>{
+        console.log('logout')
+
+        try {
+            await auth.signOut();
+            setContextData({
+                ...contextData,
+                login:false
+            });
+            localStorage.removeItem('loggedIn')
+            
+            navigate('/login');
+        }
+        catch (error) {
+            console.log(error);
+
+        }
+    }
     return (
         <StyledDiv>
             <StyledNav style={{ backgroundColor: "#382925", padding: "0 10px" }}>
@@ -125,16 +166,30 @@ const Navbar = () => {
                         <source src={video} type="video/mp4" />
                         Your browser does not support the video tag.
                     </StyledVideo>
-                    <Styledh1>Creative Collections</Styledh1>
+                    <Styledh1>Creative Antiqueology</Styledh1>
                 </FlexDiv>
-
+                {
+                        userSignIn ? (
+            <><StyledLink to="/Dashboard" className={routerPath === '/Dashboard' ? 'nav-achour text-lightgrey' : 'nav-achour text-white'}><p>Dashboard</p></StyledLink>
+            <StyledLink to="/load" className={routerPath === '/load' ? 'nav-achour text-lightgrey' : 'nav-achour text-white'}><p>Upload Item</p></StyledLink>
+            <StyledLink to="/about" className={routerPath === '/about' ? 'nav-achour text-lightgrey' : 'nav-achour text-white'}><p>About</p></StyledLink>
+            <StyledLink to="/our-products" className={routerPath === '/our-products' ? 'nav-achour text-lightgrey' : 'nav-achour text-white'}><p>Our Products</p></StyledLink>
+            </>
+        ):
+        (
+            <>
                 <StyledDiv1>
                     <StyledLink to="/" className={routerPath === '/' ? 'nav-achour text-lightgrey' : 'nav-achour text-white'}><p>Home</p></StyledLink>
                     <StyledLink to="/blogs" className={routerPath === '/blogs' ? 'nav-achour text-lightgrey' : 'nav-achour text-white'}><p>What's New</p></StyledLink>
                     <StyledLink to="/our-products" className={routerPath === '/our-products' ? 'nav-achour text-lightgrey' : 'nav-achour text-white'}><p>Our Products</p></StyledLink>
+                    
                     <StyledLink to="/contactus" className={routerPath === '/contactus' ? 'nav-achour text-lightgrey' : 'nav-achour text-white'}><p>Contact Us</p></StyledLink>
                     <StyledLink to="/about" className={routerPath === '/about' ? 'nav-achour text-lightgrey' : 'nav-achour text-white'}><p>About</p></StyledLink>
                 </StyledDiv1>
+            </>
+        )
+       
+      }
                 <StyledDiv1>
                 <FontAwesomeDiv
                     className="nav-achour text-white"
@@ -156,8 +211,16 @@ const Navbar = () => {
                     },
                     }}
                 >
-                    <MenuItem onClick={()=>navigate('/login')}>Sign In</MenuItem>
-                    <MenuItem onClick={()=>navigate('/signup')}>Sign Up</MenuItem>
+                    {
+        !userSignIn ? (
+          <Styleddiv><StyledBtn variant='contained' onClick = {() => navigate('/login')}>Sign In</StyledBtn>
+          <StyledBtn variant='contained' onClick = {() => navigate('/signup') }  >Sign Up</StyledBtn>
+      </Styleddiv>
+        ):
+        (
+          <StyledBtn variant='contained' onClick={handleLogout}>LogOut</StyledBtn>
+        )
+      }
                 </Menu>
                 </StyledDiv1>
 

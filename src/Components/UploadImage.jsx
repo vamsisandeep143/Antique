@@ -16,6 +16,10 @@ const UploadImage = () => {
     const [imageUrl, setImageUrl] = useState("");
     const [text, setText] = useState('Brass');
     const [data, setData] = useState([]);
+    const [originalPrice, setOriginalPrice] = useState("");
+    const [discountPrice, setDiscountPrice] = useState('');
+    const [description, setDescription] = useState('');
+
 
     console.log(contextData);
 
@@ -49,92 +53,117 @@ const UploadImage = () => {
 
         const valRef = collection(db, 'textData');
         try {
-            const docRef = await addDoc(valRef, { txtVal: text, imageUrl: imageUrl });
-            const newData = { id: docRef.id, txtVal: text, imageUrl: imageUrl };
-            setData(prevData => [...prevData, newData]);
-        } catch (error) {
-            console.error('Error saving data to Firestore:', error);
-        }
-    };
+            const docRef = await addDoc(valRef, {
+                txtVal: {
+                    item: text,
+                    originalPrice: originalPrice,
+                    discountPrice: discountPrice,
+                    description: description
+                }, imageUrl: imageUrl
+            });
+            const newData = { id: docRef.id, txtVal: {
+                item: text,
+                originalPrice: originalPrice,
+                discountPrice: discountPrice,
+                description: description
+            },  imageUrl: imageUrl
+        };
+        setData(prevData => [...prevData, newData]);
+    } catch (error) {
+        console.error('Error saving data to Firestore:', error);
+    }
+};
 
-    const getData = async () => {
-        const valRef = collection(db, 'textData');
-        try {
-            const dataDb = await getDocs(valRef);
-            const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
-            console.log('Fetched Data:', allData); // Debugging line
-            setData(allData);
+const getData = async () => {
+    const valRef = collection(db, 'textData');
+    try {
+        const dataDb = await getDocs(valRef);
+        const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
+        console.log('Fetched Data:', allData); // Debugging line
+        setData(allData);
 
-        } catch (error) {
-            console.error('Error fetching data from Firestore:', error);
-        }
-    };
+    } catch (error) {
+        console.error('Error fetching data from Firestore:', error);
+    }
+};
 
-    const handleDelete = async (id, imageUrl) => {
-        try {
-            // Delete the document from Firestore
-            await deleteDoc(doc(db, 'textData', id));
+const handleDelete = async (id, imageUrl) => {
+    try {
+        // Delete the document from Firestore
+        await deleteDoc(doc(db, 'textData', id));
 
-            // Delete the image from Firebase Storage
-            const storage = getStorage(app);
-            const storageRef = ref(storage, imageUrl);
-            await deleteObject(storageRef);
+        // Delete the image from Firebase Storage
+        const storage = getStorage(app);
+        const storageRef = ref(storage, imageUrl);
+        await deleteObject(storageRef);
 
-            // Update the local state
-            setData(prevData => prevData.filter(item => item.id !== id));
-        } catch (error) {
-            console.error('Error deleting image and data:', error);
-        }
-    };
+        // Update the local state
+        setData(prevData => prevData.filter(item => item.id !== id));
+    } catch (error) {
+        console.error('Error deleting image and data:', error);
+    }
+};
 
-    useEffect(() => {
-        getData();
-    }, []);
-    
-    useEffect(() => {
-        setContextData({
-            ...contextData, imageData: data
-        })
-    }, [data]);
+useEffect(() => {
+    getData();
+}, []);
 
-    return (
-        <div style={{ backgroundImage: `url(${background})` }}>
-            <h2 style={{ textAlign: "center" }}>Antique Collection</h2>
+useEffect(() => {
+    setContextData({
+        ...contextData, imageData: data
+    })
+}, [data]);
+
+return (
+    <div style={{ backgroundImage: `url(${background})` }}>
+        <h2 style={{ textAlign: "center" }}>Antique Collection</h2>
 
 
-            choose the antique item here:      <FormControl className='Test'>
-                <InputLabel id="demo-simple-select-label">Antique</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={text}
-                    label="Antique"
-                    onChange={handleChange}
-                >
-                    <MenuItem value={'Brass'}>Brass</MenuItem>
-                    <MenuItem value={'Bronze'}>Bronze</MenuItem>
-                    <MenuItem value={'Furniture'}>Furniture</MenuItem>
-                    <MenuItem value={'Painting'}>Painting</MenuItem>
-                </Select>
-            </FormControl>
-            <input type='file' onChange={handleImageChange} />
-            <button onClick={handleClick} disabled={uploading}>
-                {uploading ? 'Uploading...' : 'Upload Image'}
-            </button>
-            <div className="upload-image-container">
-                {imageUrl && <img src={imageUrl} alt='uploaded' style={{ maxWidth: 150 }} />}
-                {data.map((value) => (
+        choose the antique item here:      <FormControl className='Test'>
+            <InputLabel id="demo-simple-select-label">Antique</InputLabel>
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={text}
+                label="Antique"
+                onChange={handleChange}
+            >
+                <MenuItem value={'Brass'}>Brass</MenuItem>
+                <MenuItem value={'Bronze'}>Bronze</MenuItem>
+                <MenuItem value={'Furniture'}>Furniture</MenuItem>
+                <MenuItem value={'Painting'}>Painting</MenuItem>
+            </Select>
+            <label>Price</label>
+            <input type='number' name='price' value={originalPrice} onChange={(e) => setOriginalPrice(e.target.value)} />
+            <label>discountPrice</label>
+            <input type='number' name='price' value={discountPrice} onChange={(e) => setDiscountPrice(e.target.value)} />
+            <label>description</label>
+            <input type='textarea' name='description' value={description} onChange={(e) => setDescription(e.target.value)} />
+        </FormControl>
+        <input type='file' onChange={handleImageChange} />
+        <button onClick={handleClick} disabled={uploading}>
+            {uploading ? 'Uploading...' : 'Upload Image'}
+        </button>
+        <div className="upload-image-container">
+            {imageUrl && <img src={imageUrl} alt='uploaded' style={{ maxWidth: 150 }} />}
+            {data.map((value) => {
+                console.log(value);
+                return (
                     <div className='tester' key={value.id}>
                         <div className='image-container'>
                             <img className='test-item' src={value.imageUrl} height='200px' width='200px' alt='uploaded' />
                         </div>
-                        <h1>{value.txtVal}</h1>
+                        <h1>Item : {value.txtVal?.item}</h1>
+                        <h1>Price:{value.txtVal?.originalPrice}</h1>
+                        <h1>Discount:{value.txtVal?.discountPrice}</h1>
+                        <h1>Description:{value.txtVal?.description}</h1>
                         <Button onClick={() => handleDelete(value.id, value.imageUrl)} variant="contained" startIcon={<DeleteIcon />}>Delete</Button>
                     </div>
-                ))}
-            </div>
+                )
+            })}
         </div>
-    );
+    </div>
+);
 };
 
 export default UploadImage;

@@ -42,7 +42,7 @@ const OurProducts = () => {
     useEffect(()=>{
         console.log(filteredValue,"filteredValue")
         if(filteredValue !="All"){
-            const mapData = data.filter((item)=>item.txtVal == filteredValue)
+            const mapData = data.filter((items)=>items.txtVal.item == filteredValue)
             setFilteredData(mapData)
         }else{
             setFilteredData(data)
@@ -77,16 +77,16 @@ const OurProducts = () => {
                 <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>
                     {
-                       filteredData.map((item, index)=>{
+                       filteredData.map((items, index)=>{
                         return(
-                        <Grid item xs={4} style={{cursor:'pointer'}} onClick={() => navigate(`/product/${item.id}`)}>
+                        <Grid items xs={4} style={{cursor:'pointer'}} onClick={() => navigate(`/product/${items.id}`)}>
                             <Item>
-                                <img src={item.imageUrl} alt={index} style={{
+                                <img src={items.imageUrl} alt={index} style={{
                                 width: "100%",
                                 height: "300px",
                                 objectFit: "contain",
                                 }}/>
-                            <h5>{item.txtVal}</h5>
+                            <h5>{items.txtVal.item}</h5>
                             </Item>
                         </Grid>
                         )
