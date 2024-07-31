@@ -30,6 +30,7 @@ import AddToCart from './Components/AddToCart';
 import Footer from './Components/Footer';
 import BackToTop from './Components/BackToTop';
 import About from './Components/About';
+import ProductDetailsList from './Components/ProductDetailsList';
 // import photo from '../Assets/background.jpg';
 
 export const store = createContext({});
@@ -56,16 +57,20 @@ function App() {
               <Route path="/our-products" element={<OurProducts />} />
               <Route path="/signup" element={<AdminSignUp />} />
               <Route path="/login" element={<AdminLogin />} />
-              <Route path="loginComp" element={<Login />} />
+              <Route path="/loginComp" element={<Login />} />
+              <Route path="/product/:productID" element={<ProductDetails setContextData={setContextData} contextData={contextData} />} />
+              <Route path="/products/:productID" element={<ProductDetailsList setContextData={setContextData} contextData={contextData} />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/add-to-cart" element={<AddToCart />} />
+             
+
 
               <Route element={<ProtectedRoute />}>
                 <Route path="/Dashboard" element={<AdminDashboard />} />
                 <Route path="/profilepic" element={<ProfilePic />} />
                 <Route path="/image-gallery" element={<ImageGallery />} />
                 <Route path="/load" element={<UploadImage />} />
-                <Route path="/shop" element={<Shop />} />
-                <Route path="/add-to-cart" element={<AddToCart />} />
-                <Route path="/product/:productID" element={<ProductDetails setContextData={setContextData} contextData={contextData} />} />
+              
               </Route>
 
 
@@ -73,7 +78,7 @@ function App() {
               <Route path="/logout" element={<Logout />} />
               <Route path="/contactus" element={<ContactUs />} />
               <Route path="/about" element = {<About/>}/>
-              <Route path="/protect" element={<ProtectedRoute />} />
+            
 
             </Route>
           </Routes>

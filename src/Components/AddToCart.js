@@ -18,10 +18,10 @@ const AddToCart = () => {
             <div style={{width:'100%',display:'flex',justifyContent:'space-between',border:'1px solid #d3d3d3',alignItems:'center',margin:'20px',boxShadow: 'rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px'}}>
                 <div style={{display:'flex'}}>
                 <div style={{width:'150px', display:'flex',justifyContent:'center',padding:'10px 0'}}>
-                    <img src={data.item.imageUrl} style={{height:'150px',objectFit:'contain'}} alt={data.item.txtVal} />
+                    <img src={data.item.imageUrl} style={{height:'150px',objectFit:'contain'}} alt={data.item.txtVal.item} />
                 </div>
                 <div style={{display:'flex',justifyContent:'center',alignItems:'center',}}>
-                    <h4>{data.item.txtVal}</h4>
+                    <h4>{data.item.txtVal.item}</h4>
                 </div>
                 </div>
                 <div style={{marginRight:'20px'}}>

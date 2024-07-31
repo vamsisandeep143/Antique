@@ -13,14 +13,19 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ReactOwlCarousel from 'react-owl-carousel'
 import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
-import app from './Firebase';
-import './CardCarousel.css'
-const CardCousol = () => {
+import app, { db } from './Firebase';
+import './CardCarousel.css';
+import { useNavigate, useParams } from 'react-router-dom';
+import { collection, getDocs } from 'firebase/firestore';
+const CardCousol = ({filter}) => {
+  const { productID } = useParams();
+  const [urlID,setURLID]=useState();
   const antiqueImages= [Image10,Image6,Image7]
-
+  const navigate = useNavigate()
   const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const [data,setData]=useState([])
+    const [filteredData,setFilteredData]=useState()
     const fetchImages = async () => {
         const storage = getStorage(app);
         const listRef = ref(storage, 'images/');
@@ -35,10 +40,35 @@ const CardCousol = () => {
             setLoading(false);
         }
     };
+    const getData = async () => {
+      const valRef = collection(db, 'textData');
+      try {
+          const dataDb = await getDocs(valRef);
+          const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
+          console.log('Fetched Data our products:', allData); // Debugging line
+          setData(allData)
+          
+            if(filter){
+              const choseProducts = allData.filter((item)=>{
+                return item.id != productID
+            })
+              
+              setFilteredData(choseProducts);
+              setLoading(false);
+            }else{
+              setFilteredData(allData);
+            }
+          
+          setLoading(false);
+      } catch (error) {
+          console.error('Error fetching data from Firestore:', error);
+      }
+  };
 
     useEffect(() => {
         fetchImages();
-    }, []);
+        getData()
+    }, [productID]);
   return (
     //     <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
     //   <div className="carousel-inner">
@@ -89,10 +119,13 @@ const CardCousol = () => {
       ) : (
         <div
           style={{
-            width: "95%",
+            // width: "95%",
+            width: "98%",
             margin: "auto",
-            backgroundColor: "#f6f3f2",
+            backgroundColor: "#f6f3f2!important",
             padding: "15px",
+            color:'#382925',
+            textAlign:'center'
           }}
         >
           <ReactOwlCarousel
@@ -105,8 +138,9 @@ const CardCousol = () => {
             autoplayTimeout={10000000}
             items={3}
             width="98%"
+            backgroundColor="#f6f3f2"
           >
-            {images.map((item, index) => {
+            {filteredData?.map((item, index) => {
               console.log(item,"item")
               return (
                 <div
@@ -115,13 +149,15 @@ const CardCousol = () => {
                 >
                   <img
                     class="card-img-top"
-                    src={item}
+                    src={item.imageUrl}
                     alt="Card image cap"
                     style={{
                       width: "100%",
                       height: "300px",
                       objectFit: "contain",
+                      cursor:'pointer'
                     }}
+                    onClick={()=>navigate(`/products/${item.id}`)}
                   />
     </div>
               );

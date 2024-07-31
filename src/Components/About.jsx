@@ -5,7 +5,7 @@ import Test2 from '../Assets/About2.jpg';
 import Test3 from '../Assets/Aboutbackground1.jpeg';
 import Test4 from '../Assets/Aboutbackground2.jpeg';
 import Test5 from '../Assets/Aboutbackground3.jpeg';
-import Slideshow from './Slider'; // Ensure Slideshow is correctly imported
+import {Slideshow } from './Slider'; // Ensure Slideshow is correctly imported
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 

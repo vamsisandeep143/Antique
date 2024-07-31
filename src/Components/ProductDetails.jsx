@@ -97,7 +97,7 @@ const ProductDetails = () => {
         //   border:'1px solid #382925'
         }}
       >
-        <h1>{filteredItem?.txtVal}</h1>
+        <h1>{filteredItem?.txtVal.item}</h1>
         <p>
           Step back in time with this exquisite Antique Victorian Silver Pocket
           Watch, a true testament to the elegance and craftsmanship of the 19th
