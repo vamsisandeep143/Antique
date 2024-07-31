@@ -42,13 +42,21 @@ function App() {
     login: false,
   });
   const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
   const addToCart = (item) => {
-    console.log(item, "item")
-    setCart((prevCart) => [...prevCart, { item }]);
+    console.log(item,"item")
+    setCart((prevCart) => [...prevCart, {item}]);
   };
+  const removeFromCart = (item)=>{
+    const filteredCart = cart.filter((cartItem)=> {
+      return cartItem.item.id != item.id
+    })
+    setCart(filteredCart)
+  }
+
   return (
     <div id='mainsection'>
-      <store.Provider value={[contextData, setContextData, addToCart, cart]}>
+      <store.Provider value={[contextData, setContextData,addToCart,cart,removeFromCart,total,setTotal]}>
         <BrowserRouter>
           <Navbar />
           <Routes>
