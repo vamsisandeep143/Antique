@@ -3,6 +3,9 @@ import { Card, CardContent, CardMedia, Typography, CardActions, Button, IconButt
 import { AddShoppingCart, CheckBox } from '@mui/icons-material';
 import { store } from "../App";
 import { useNavigate } from "react-router-dom";
+// import {noCartIcon} from '../Assets/no-cart.png';  
+import noCartIcon from "../Assets/icons/cartdisable.png";
+import './AddToCart.css'
 
 const AddToCart = () => {
   const [, , , cart,removeFromCart,,setTotal] = useContext(store);
@@ -17,34 +20,46 @@ const AddToCart = () => {
     return amount
   }
   return (
-    <div style={{width:'80%',margin:'auto'}}>
+    <div className="container add-to-cart-page">
       {
         cart?.length >0 ? (
           <>
-      <h2>Cart</h2>
+      <h2 className="title">Cart</h2>
       {cart?.map((data,i) => {
         console.log(data.item.imageUrl,"data")
         return (
           <>
-        <div style={{ width:'100%',display:'flex',justifyContent:'center',alignItems:'center',margin:'auto'}}>
-            <div>
-            <input key={data.item.id} type='checkbox' defaultChecked="true" onChange={()=>removeFromCart(data.item)} />
+        <div className="addToCart-item-container">
+          <table className="cart-table">
+            <tr>
+              <th style={{width:'50px'}}></th>
+              <th>Product Image</th>
+              <th>Details</th>
+              <th>Price</th>
+            </tr>
+            <tr>
+              <td>
+              <div className="input-block">
+              <label class="checkbox-container">                
+                <input key={data.item.id} type='checkbox' checked="checked" defaultChecked="true" onChange={()=>removeFromCart(data.item)} />
+                <span class="checkmark"></span>
+              </label>
+            
             </div>
-            <div style={{width:'100%',display:'flex',justifyContent:'space-between',border:'1px solid #d3d3d3',alignItems:'center',margin:'20px',boxShadow: 'rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px'}}>
-                <div style={{display:'flex'}}>
-                <div style={{width:'150px', display:'flex',justifyContent:'center',padding:'10px 0'}}>
+              </td>
+              <td>
+              <div className="img-block">
                     <img src={data.item.imageUrl} style={{height:'150px',objectFit:'contain'}} alt={data.item.txtVal.item} />
                 </div>
-                <div style={{display:'flex',justifyContent:'center',alignItems:'center',}}>
+              </td>
+              <td align="left">
+              <div style={{display:'flex',justifyContent:'start',alignItems:'center',}}>
                     <h4>{data.item.txtVal.item}</h4>
                 </div>
-                </div>
-                <div style={{marginRight:'20px'}}>
-
-                    {/* <h5>${data?.item.price}</h5> */}
-                    <h5>${99}</h5>
-                </div>
-            </div>
+              </td>
+              <td><h5>${99}</h5></td>
+            </tr>
+          </table>
             </div>
              </>
             
@@ -59,12 +74,15 @@ const AddToCart = () => {
             </h4>
           </div>
     }
-          <button onClick={()=>navigate('/shop')}>Proceed to Checkout</button>
+          <button onClick={()=>navigate('/shop')} className="btn custom-btn-primary">Proceed to Checkout</button>
           </div>
     </>
         ):
         (
-          <h2>No Products added to cart</h2>
+          <div className="no-cart">
+            <img src={noCartIcon} alt="no-cart" height={100} />
+            <h2 className="no-cart-text">No Products added to cart</h2>
+            </div>
         )
       }
     </div>

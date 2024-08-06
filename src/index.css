@@ -1,42 +1,63 @@
 body {
   margin: 0;
-    font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    /* font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', */
-  
-      /* monospace; */
-      font-family: 'Roboto', sans-serif;
+  /* font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', */
+
+  /* monospace; */
+  font-family: "Roboto", sans-serif;
 }
 
-.nav-achour{
-    text-decoration: none !important;
+.nav-achour {
+  text-decoration: none !important;
   font-weight: 700;
-    margin-right: 30px;
-  
+  margin-right: 30px;
 }
 
-.text-black{
-color:black;
-
+.text-black {
+  color: black;
 }
 
-.text-grey{
-color:#767171;
-
-  }
-  .text-white{
-  color:#fff;
+.text-grey {
+  color: #767171;
+}
+.text-white {
+  color: #fff;
 }
 
-  .text-lightgrey{
-    color:#888888
-  }
+.text-lightgrey {
+  color: #888888;
+}
 
-.text-red{
+.text-red {
   color: red;
 }
-  
+
+.custom-profile-menu {
+  right: 40px;
+  left: auto;
+}
+.custom-profile-menu li {
+  font-size: 16px;
+}
+.shop-page{
+  min-height: calc(100vh - 300px);
+  padding: 50px 0px;
+  text-align: center;
+}
+.blog-page{
+  min-height: calc(100vh - 300px);
+  padding: 50px 0px;
+  text-align: center;
+}
+.nav-achour {
+  text-decoration: none !important;
+  font-weight: 700;
+  margin-right: 30px;
+  align-items: center;
+  display: flex;
+}

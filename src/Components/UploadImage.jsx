@@ -1,169 +1,279 @@
-import React, { useState, useContext, useEffect } from 'react';
-import styled from 'styled-components';
-import background from '../Assets/background.jpg';
-import DeleteIcon from '@mui/icons-material/Delete';
-import './Upload.css';
-import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import app from './Firebase';
-import { store } from '../App';
-import { db } from './Firebase';
-import { addDoc, collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
-import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import React, { useState, useContext, useEffect } from "react";
+import styled from "styled-components";
+import background from "../Assets/background.jpg";
+import DeleteIcon from "@mui/icons-material/Delete";
+import "./Upload.css";
+import {
+  deleteObject,
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
+import app from "./Firebase";
+import { store } from "../App";
+import { db } from "./Firebase";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+} from "firebase/firestore";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 
 const UploadImage = () => {
-    const [contextData, setContextData] = useContext(store);
-    const [uploading, setUploading] = useState(false);
-    const [imageUrl, setImageUrl] = useState("");
-    const [text, setText] = useState('Brass');
-    const [data, setData] = useState([]);
-    const [originalPrice, setOriginalPrice] = useState("");
-    const [discountPrice, setDiscountPrice] = useState('');
-    const [description, setDescription] = useState('');
+  const [contextData, setContextData] = useContext(store);
+  const [uploading, setUploading] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+  const [text, setText] = useState("Brass");
+  const [data, setData] = useState([]);
+  const [originalPrice, setOriginalPrice] = useState("");
+  const [discountPrice, setDiscountPrice] = useState("");
+  const [description, setDescription] = useState("");
 
+  console.log(contextData);
 
-    console.log(contextData);
+  const handleImageChange = async (e) => {
+    const image = e.target.files[0];
 
-    const handleImageChange = async (e) => {
-        const image = e.target.files[0];
-
-        if (image) {
-            try {
-                setUploading(true);
-                const storage = getStorage(app);
-                const storageRef = ref(storage, `images/${image.name}`);
-                await uploadBytes(storageRef, image);
-                const downloadURL = await getDownloadURL(storageRef);
-                console.log('Image URL:', downloadURL); // Debugging line
-                setImageUrl(downloadURL);
-            } catch (error) {
-                console.error('Error uploading image:', error);
-            } finally {
-                setUploading(false);
-            }
-        }
-    };
-
-    const handleChange = (e) => (setText(e.target.value))
-
-    const handleClick = async () => {
-        if (!text || !imageUrl) {
-            console.warn('Text or Image URL is missing!');
-            return;
-        }
-
-        const valRef = collection(db, 'textData');
-        try {
-            const docRef = await addDoc(valRef, {
-                txtVal: {
-                    item: text,
-                    originalPrice: originalPrice,
-                    discountPrice: discountPrice,
-                    description: description
-                }, imageUrl: imageUrl
-            });
-            const newData = { id: docRef.id, txtVal: {
-                item: text,
-                originalPrice: originalPrice,
-                discountPrice: discountPrice,
-                description: description
-            },  imageUrl: imageUrl
-        };
-        setData(prevData => [...prevData, newData]);
-    } catch (error) {
-        console.error('Error saving data to Firestore:', error);
-    }
-};
-
-const getData = async () => {
-    const valRef = collection(db, 'textData');
-    try {
-        const dataDb = await getDocs(valRef);
-        const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
-        console.log('Fetched Data:', allData); // Debugging line
-        setData(allData);
-
-    } catch (error) {
-        console.error('Error fetching data from Firestore:', error);
-    }
-};
-
-const handleDelete = async (id, imageUrl) => {
-    try {
-        // Delete the document from Firestore
-        await deleteDoc(doc(db, 'textData', id));
-
-        // Delete the image from Firebase Storage
+    if (image) {
+      try {
+        setUploading(true);
         const storage = getStorage(app);
-        const storageRef = ref(storage, imageUrl);
-        await deleteObject(storageRef);
-
-        // Update the local state
-        setData(prevData => prevData.filter(item => item.id !== id));
-    } catch (error) {
-        console.error('Error deleting image and data:', error);
+        const storageRef = ref(storage, `images/${image.name}`);
+        await uploadBytes(storageRef, image);
+        const downloadURL = await getDownloadURL(storageRef);
+        console.log("Image URL:", downloadURL); // Debugging line
+        setImageUrl(downloadURL);
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      } finally {
+        setUploading(false);
+      }
     }
-};
+  };
 
-useEffect(() => {
+  const handleChange = (e) => setText(e.target.value);
+
+  const handleClick = async () => {
+    if (!text || !imageUrl) {
+      console.warn("Text or Image URL is missing!");
+      return;
+    }
+
+    const valRef = collection(db, "textData");
+    try {
+      const docRef = await addDoc(valRef, {
+        txtVal: {
+          item: text,
+          originalPrice: originalPrice,
+          discountPrice: discountPrice,
+          description: description,
+        },
+        imageUrl: imageUrl,
+      });
+      const newData = {
+        id: docRef.id,
+        txtVal: {
+          item: text,
+          originalPrice: originalPrice,
+          discountPrice: discountPrice,
+          description: description,
+        },
+        imageUrl: imageUrl,
+      };
+      setData((prevData) => [...prevData, newData]);
+    } catch (error) {
+      console.error("Error saving data to Firestore:", error);
+    }
+  };
+
+  const getData = async () => {
+    const valRef = collection(db, "textData");
+    try {
+      const dataDb = await getDocs(valRef);
+      const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
+      console.log("Fetched Data:", allData); // Debugging line
+      setData(allData);
+    } catch (error) {
+      console.error("Error fetching data from Firestore:", error);
+    }
+  };
+
+  const handleDelete = async (id, imageUrl) => {
+    try {
+      // Delete the document from Firestore
+      await deleteDoc(doc(db, "textData", id));
+
+      // Delete the image from Firebase Storage
+      const storage = getStorage(app);
+      const storageRef = ref(storage, imageUrl);
+      await deleteObject(storageRef);
+
+      // Update the local state
+      setData((prevData) => prevData.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Error deleting image and data:", error);
+    }
+  };
+
+  useEffect(() => {
     getData();
-}, []);
+  }, []);
 
-useEffect(() => {
+  useEffect(() => {
     setContextData({
-        ...contextData, imageData: data
-    })
-}, [data]);
+      ...contextData,
+      imageData: data,
+    });
+  }, [data]);
 
-return (
-    <div style={{ backgroundImage: `url(${background})` }}>
-        <h2 style={{ textAlign: "center" }}>Antique Collection</h2>
+  return (
+    <section className="upload-container">
+      <div className="container">
+        <h2 className="upload-heading">Antique Collection</h2>
 
-
-        choose the antique item here:      <FormControl className='Test'>
-            <InputLabel id="demo-simple-select-label">Antique</InputLabel>
-            <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={text}
-                label="Antique"
-                onChange={handleChange}
-            >
-                <MenuItem value={'Brass'}>Brass</MenuItem>
-                <MenuItem value={'Bronze'}>Bronze</MenuItem>
-                <MenuItem value={'Furniture'}>Furniture</MenuItem>
-                <MenuItem value={'Painting'}>Painting</MenuItem>
-            </Select>
-            <label>Price</label>
-            <input type='number' name='price' value={originalPrice} onChange={(e) => setOriginalPrice(e.target.value)} />
-            <label>discountPrice</label>
-            <input type='number' name='price' value={discountPrice} onChange={(e) => setDiscountPrice(e.target.value)} />
-            <label>description</label>
-            <input type='textarea' name='description' value={description} onChange={(e) => setDescription(e.target.value)} />
-        </FormControl>
-        <input type='file' onChange={handleImageChange} />
-        <button onClick={handleClick} disabled={uploading}>
-            {uploading ? 'Uploading...' : 'Upload Image'}
-        </button>
-        <div className="upload-image-container">
-            {imageUrl && <img src={imageUrl} alt='uploaded' style={{ maxWidth: 150 }} />}
-            {data.map((value) => {
-                console.log(value);
-                return (
-                    <div className='tester' key={value.id}>
-                        <div className='image-container'>
-                            <img className='test-item' src={value.imageUrl} height='200px' width='200px' alt='uploaded' />
-                        </div>
-                        <h1>Item : {value.txtVal?.item}</h1>
-                        <h1>Price:{value.txtVal?.originalPrice}</h1>
-                        <h1>Discount:{value.txtVal?.discountPrice}</h1>
-                        <h1>Description:{value.txtVal?.description}</h1>
-                        <Button onClick={() => handleDelete(value.id, value.imageUrl)} variant="contained" startIcon={<DeleteIcon />}>Delete</Button>
+        <div className="input-group-container">
+          <section className="row">
+            <div className="col-6">
+              <div className="row mb-4">
+                <div className="col-6">
+                <label>choose the antique item here:</label>
                     </div>
-                )
-            })}
+                <div className="col-6">
+                  <InputLabel id="demo-simple-select-label">Antique</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={text}
+                    sx={{ minWidth: 200 }}
+                    label="Antique"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={"Brass"}>Brass</MenuItem>
+                    <MenuItem value={"Bronze"}>Bronze</MenuItem>
+                    <MenuItem value={"Furniture"}>Furniture</MenuItem>
+                    <MenuItem value={"Painting"}>Painting</MenuItem>
+                  </Select>
+                </div>
+              </div>
+              <div className="row mb-4">
+                <div className="col-6">
+                  <label>Price</label>
+                </div>
+                <div className="col-6">
+                  {" "}
+                  <input
+                    type="number"
+                    name="price" className="custom-input"
+                    value={originalPrice}
+                    onChange={(e) => setOriginalPrice(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="row mb-4">
+                <div className="col-6">
+                  <label>discountPrice</label>
+                </div>
+                <div className="col-6">
+                  {" "}
+                  <input
+                    type="number"
+                    name="price"
+                    value={discountPrice}  className="custom-input"
+                    onChange={(e) => setDiscountPrice(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="row mb-4">
+                <div className="col-6">
+                  {" "}
+                  <label>description</label>
+                </div>
+                <div className="col-6">
+                  {" "}
+                  <input
+                    type="textarea"
+                    name="description"
+                    value={description} className="custom-input"
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="row mb-4">
+              <div className="col-6">
+                  {" "}
+                  <label>Choose image</label>
+                </div>
+                <div className="col-6">
+                  <input type="file" onChange={handleImageChange} />                 
+                </div>
+                
+              </div>
+              <div className="row mb-4">
+              <div className="col-12 pt-4">
+                <button onClick={handleClick} disabled={uploading} className="upload-btn">
+                    {uploading ? "Uploading..." : "Upload Image"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
-    </div>
-);
+
+        <div className="upload-image-container">
+          {imageUrl && (
+            <img src={imageUrl} alt="uploaded" style={{ maxWidth: 150 }} />
+          )}
+          {data.map((value) => {
+            console.log(value);
+            return (
+              <section className="upload-preview-item" key={value.id}>
+                <div className="upload-image-container">
+                  <img
+                    className="upload-image"
+                    src={value.imageUrl}
+                    alt="uploaded"
+                  />
+                </div>
+                <h1 className="item-desp">
+                  <span className="info">Item : </span>
+                  <span className="value">{value.txtVal?.item}</span>
+                </h1>
+                <h1 className="item-desp">
+                  <span className="info">Price:</span>
+                  <span className="value">{value.txtVal?.originalPrice}</span>
+                </h1>
+                <h1 className="item-desp">
+                  <span className="info">Discount:</span>
+                  <span className="value">{value.txtVal?.discountPrice}</span>
+                </h1>
+                <h1 className="item-desp">
+                  <span className="info">Description:</span>
+                  <span className="value">{value.txtVal?.description}</span>
+                </h1>
+                <Button
+                  onClick={() => handleDelete(value.id, value.imageUrl)}
+                  variant="contained"
+                  className="trash-btn"
+                  startIcon={<DeleteIcon />}
+                >
+                  Delete
+                </Button>
+              </section>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default UploadImage;

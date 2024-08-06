@@ -27,8 +27,11 @@ const Shop = () => {
     };
   
     return (
+      <section className='shop-page'>
+        <Paypal />
+      </section>
 
-      <Paypal />
+      
 
       // <Container>
       //   <Typography variant="h4" component="h1" gutterBottom>

@@ -1,17 +1,35 @@
 .dashboardmain{
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 10px;
-grid-auto-rows: minmax(100px, auto);
-}
-
-.pic{
-width:300px;
-height:200px;
-border:2px solid #f1faff;
-border-radius: 10px;
-padding-left:90px;
-padding-top:50px;
-
-
-}
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    }
+    
+    .pic{
+    width:300px;
+    height:200px;
+    border:2px solid #f1faff;
+    border-radius: 10px;
+    padding-left:90px;
+    padding-top:50px;
+    
+    
+    }
+    .dashboard-container{
+    width: 100%;
+    height: auto;
+    }
+    .dashboard-container .dashboard-heading{
+    text-align: center;
+    font-size:20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #382925;
+    padding: 20px 0px;
+    }
+    .custom-btn-primary{
+        font-size: 1.5rem;
+    font-weight: 500;
+    background-color: #382925 !important;
+    color: #f1faff;
+    }

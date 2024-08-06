@@ -77,7 +77,7 @@ const ContactUs = () => {
           <div className="col-6">
             <form ref={form} onSubmit={postData}>
               <TextField
-                className="w-100 mt-4 custom-input"
+                className="w-100 mt-4 custom-inputtag"
                 id="outlined-basic"
                 name="name"
                 label="Name"

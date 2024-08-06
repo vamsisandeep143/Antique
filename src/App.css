@@ -50,3 +50,13 @@
   font-weight: 400;
   text-transform: uppercase;
 }
+.custom-nav{
+  display: flex;
+  margin-left: auto;
+}
+.custom-nav .nav-achour{
+  margin: 0px 15px !important;
+}
+.custom-nav .nav-achour p{
+  margin: 0px 0px !important;
+}

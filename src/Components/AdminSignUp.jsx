@@ -1,9 +1,9 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import React,{useState} from 'react'
-import { auth,db } from './Firebase';
-import { setDoc,doc } from 'firebase/firestore';
-import { toast } from 'react-toastify';
-import ProfilePic from './ProfilePic';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { useState } from "react";
+import { auth, db } from "./Firebase";
+import { setDoc, doc } from "firebase/firestore";
+import { toast } from "react-toastify";
+import ProfilePic from "./ProfilePic";
 import {
   Card,
   CardContent,
@@ -11,47 +11,40 @@ import {
   Button,
   Typography,
   Container,
-  Box
-} from '@mui/material';
+  Box,
+} from "@mui/material";
 const AdminSignUp = () => {
-    const [email,setEmail] = useState("");
-    const [password,setPassword] = useState("");
-    const [fname,setFname] = useState("");
-    const [lname,setLname] = useState("");
-    const [photo,setPhoto] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [photo, setPhoto] = useState("");
 
-    const handleRegister = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    try{
-       await createUserWithEmailAndPassword(auth,email,password);
-        const user = auth.currentUser;
-        console.log(auth);
-        console.log(user);
-        toast.success("User Registered success",{
-
-            position: "top-right"
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      const user = auth.currentUser;
+      console.log(auth);
+      console.log(user);
+      toast.success("User Registered success", {
+        position: "top-right",
+      });
+      if (user) {
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          firstName: fname,
+          lastName: lname,
         });
-        if(user) {
-            await setDoc(doc(db,"users",user.uid),{
-                email:user.email,
-                firstName:fname,
-                lastName:lname,
-            });
-        }
+      }
     } catch (error) {
-
-        console.log(error.message)
-        console.log('user Registered');
-        toast.success("User Registered failure",{
-
-            position: "top-right"
-        });
-
+      console.log(error.message);
+      console.log("user Registered");
+      toast.success("User Registered failure", {
+        position: "top-right",
+      });
     }
-
-
-
-    }
+  };
 
   return (
     // <form onSubmit={handleRegister}>
@@ -85,7 +78,7 @@ const AdminSignUp = () => {
     //   placeholder='Enter your password'
     //   className='mb-3'
     //   value={password}
-    //   onChange={(e) => setPassword(e.target.value)}  
+    //   onChange={(e) => setPassword(e.target.value)}
     //   ></input>
     //   </div>
     //   <div className='mb-3'>
@@ -94,8 +87,8 @@ const AdminSignUp = () => {
     //    type='text'
     //    placeholder='Enter your Email'
     //    className='mb-3'
-    //    value={email}  
-    //    onChange={(e) => setEmail(e.target.value)}    
+    //    value={email}
+    //    onChange={(e) => setEmail(e.target.value)}
     //   ></input>
     //   </div>
     //   <div className='mb-3'>
@@ -104,8 +97,8 @@ const AdminSignUp = () => {
     //    type='file'
     //    placeholder='Enter your photo'
     //    className='mb-3'
-    //    value={photo}  
-    //    onChange={(e) => setPhoto(e.target.value)}    
+    //    value={photo}
+    //    onChange={(e) => setPhoto(e.target.value)}
     //   ></input>
     //   </div>
     //   <div className='d-grid'>
@@ -114,86 +107,99 @@ const AdminSignUp = () => {
     //   <ProfilePic/>
     // </form>
     <div>
-    <Container maxWidth="sm">
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight={`calc(100vh - 80px)`}
-        padding="20px"
-      >
-        <Card sx={{ minWidth: 275 }}>
-          <CardContent>
-            <Typography variant="h4" component="h1" gutterBottom>
-              Sign Up
-            </Typography>
-    <form onSubmit={handleRegister}>
-              <TextField
-                label="First Name"
-      type="text"
-                fullWidth
-                margin="normal"
-      value={fname}
-      onChange={(e) => setFname(e.target.value)}
-                required
-              />
-              <TextField
-                label="Last Name"
-                type="text"
-                fullWidth
-                margin="normal"
-      value={lname}
-      onChange={(e) => setLname(e.target.value)}
-                required
-              />
-              <TextField
-                label="Password"
-                type="password"
-                fullWidth
-                margin="normal"
-      value={password}
-      onChange={(e) => setPassword(e.target.value)}  
-                required
-              />
-              <TextField
-                label="Email Address"
-                type="email"
-                fullWidth
-                margin="normal"
-       value={email}  
-       onChange={(e) => setEmail(e.target.value)}    
-                required
-              />
-      <ProfilePic/>
-              <Button
-                variant="contained"
-                component="label"
-                fullWidth
-                sx={{ marginY: 2 }}
-              >
-                Upload Photo
-                <input
-                  type="file"
-                  hidden
-                  onChange={(e) => setPhoto(e.target.files[0])}
+      <Container maxWidth="sm">
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight={`calc(100vh - 80px)`}
+          padding="20px"
+        >
+          <Card sx={{ minWidth: 275 }}>
+            <CardContent>
+              <Typography variant="h4" component="h1" gutterBottom sx={{ textAlign: "center" }}>
+                Sign Up
+              </Typography>
+              <form onSubmit={handleRegister}>
+                <TextField
+                  label="First Name"
+                  type="text"
+                  fullWidth
+                  margin="normal"
+                  value={fname}
+                  onChange={(e) => setFname(e.target.value)}
+                  required
                 />
-              </Button>
-              <Box mt={2}>
+                <TextField
+                  label="Last Name"
+                  type="text"
+                  fullWidth
+                  margin="normal"
+                  value={lname}
+                  onChange={(e) => setLname(e.target.value)}
+                  required
+                />
+                <TextField
+                  label="Password"
+                  type="password"
+                  fullWidth
+                  margin="normal"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <TextField
+                  label="Email Address"
+                  type="email"
+                  fullWidth
+                  margin="normal"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                <ProfilePic />
                 <Button
                   variant="contained"
+                  component="label"
                   fullWidth
-                  type="submit"
+                  sx={{
+                    backgroundColor: "#382925",
+                    fontSize: "14px",
+                    "&:hover": {
+                      backgroundColor: "#2e211e",
+                    },
+                  }}
                 >
-                  Sign Up
+                  Upload Photo
+                  <input
+                    type="file"
+                    hidden
+                    onChange={(e) => setPhoto(e.target.files[0])}
+                  />
                 </Button>
-              </Box>
-    </form>
-          </CardContent>
-        </Card>
-      </Box>
-    </Container>
+                <Box mt={2}>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    sx={{
+                      backgroundColor: "#382925",
+                      fontSize: "14px",
+                      "&:hover": {
+                        backgroundColor: "#2e211e",
+                      },
+                    }}
+                    type="submit"
+                  >
+                    Sign Up
+                  </Button>
+                </Box>
+              </form>
+            </CardContent>
+          </Card>
+        </Box>
+      </Container>
     </div>
-  )
-}
+  );
+};
 
-export default AdminSignUp
+export default AdminSignUp;

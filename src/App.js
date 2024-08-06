@@ -31,6 +31,9 @@ import Footer from './Components/Footer';
 import BackToTop from './Components/BackToTop';
 import About from './Components/About';
 import ProductDetailsList from './Components/ProductDetailsList';
+import { Description } from '@mui/icons-material';
+import DescriptionInfo from './Components/DescriptionInfo';
+import Specifications from './Components/Specifications';
 // import photo from '../Assets/background.jpg';
 
 export const store = createContext({});
@@ -64,12 +67,25 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/our-products" element={<OurProducts />} />
               <Route path="/signup" element={<AdminSignUp />} />
+              <Route path = "/blogs" element = {<Blogs/>}></Route>
               <Route path="/login" element={<AdminLogin />} />
               <Route path="/loginComp" element={<Login />} />
-              <Route path="/product/:productID" element={<ProductDetails setContextData={setContextData} contextData={contextData} />} />
+              <Route path="/product/:productID" element={<ProductDetails setContextData={setContextData} contextData={contextData} />} >
+              <Route path= "Description" index element = {<DescriptionInfo/>}></Route>
+              <Route path = "Specifications" element = {<Specifications/>}></Route>
+              
+              </Route>
+              
+              
+              
+              
+  
               <Route path="/products/:productID" element={<ProductDetailsList setContextData={setContextData} contextData={contextData} />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/add-to-cart" element={<AddToCart />} />
+              <Route path = "/productsDetail" element = {<ProductDetails/>}>
+                 
+                  </Route>
              
 
 
