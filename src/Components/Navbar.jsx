@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import Styled from "styled-components";
 import { store } from "../App";
@@ -14,9 +14,10 @@ import TestToast from "./TestToast";
 import { Menu, MenuItem, Box, IconButton } from "@mui/material";
 import styled from "@emotion/styled";
 import { auth } from "./Firebase";
-import cclogo from "../Assets/cc-logo-v1-logo.png";
+import cclogo from "../Assets/CCLogo.svg";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { motion } from 'framer-motion';
+import { BorderBottom } from "@mui/icons-material";
 
 const StyledNav = Styled.nav`
 display:flex;
@@ -51,29 +52,17 @@ color:#fff;
 
 `;
 
-const StyledLink = Styled(Link)`
-&:focus {
-    color: #888888 !important;
-  }
+const StyledLink = Styled(NavLink)`
+
   
-a {
-    text-decoration: none;
-}
+
 
 p{
-// font-family:'Zen Antique Soft', serif;
 font-family: 'Roboto', sans-serif;
 display:inline;
 font-size:1.5rem;
 text-transform:uppercase;
 }
-
-// p::after { 
-//   content: "      |";
-//    color: yellow;
-//    font-weight: bold;
-// }
-
 `;
 
 const FontAwesomeDiv = styled.div`
@@ -117,6 +106,16 @@ padding:1rem;
 
 
 `;
+
+const navLinkStyles = ({isActive}) => {
+  return {
+  fontWeight:isActive?'bold':'normal',
+  borderBottom:isActive?'3px solid #000000': 'none',
+  paddingBottom:'2px',
+  color:'green',
+  
+  }
+    }
 const StyledProfilediv = Styled.div`
 padding:0px 1rem;
 
@@ -182,6 +181,7 @@ const Navbar = () => {
         {userSignIn ? (
           <section className="custom-nav">
             <StyledLink
+              style= {navLinkStyles}
               to="/Dashboard"
               className={
                 routerPath === "/Dashboard"
@@ -192,6 +192,7 @@ const Navbar = () => {
               <p>Dashboard</p>
             </StyledLink>
             <StyledLink
+             style= {navLinkStyles}
               to="/load"
               className={
                 routerPath === "/load"
@@ -202,6 +203,7 @@ const Navbar = () => {
               <p>Upload Item</p>
             </StyledLink>
             <StyledLink
+              style= {navLinkStyles}
               to="/about"
               className={
                 routerPath === "/about"
@@ -212,6 +214,7 @@ const Navbar = () => {
               <p>About</p>
             </StyledLink>
             <StyledLink
+              style= {navLinkStyles}
               to="/our-products"
               className={
                 routerPath === "/our-products"
@@ -226,6 +229,7 @@ const Navbar = () => {
           <section className="custom-nav">
             <StyledDiv1>
               <StyledLink
+              style= {navLinkStyles}
                 to="/"
                 className={
                   routerPath === "/"
@@ -236,6 +240,7 @@ const Navbar = () => {
                 <p>Home</p>
               </StyledLink>
               <StyledLink
+                style= {navLinkStyles}
                 to="/blogs"
                 className={
                   routerPath === "/blogs"
@@ -246,6 +251,7 @@ const Navbar = () => {
                 <p>What's New</p>
               </StyledLink>
               <StyledLink
+                style= {navLinkStyles}
                 to="/our-products"
                 className={
                   routerPath === "/our-products"
@@ -257,6 +263,7 @@ const Navbar = () => {
               </StyledLink>
 
               <StyledLink
+                style= {navLinkStyles}
                 to="/contactus"
                 className={
                   routerPath === "/contactus"
@@ -267,6 +274,7 @@ const Navbar = () => {
                 <p>Contact Us</p>
               </StyledLink>
               <StyledLink
+                style= {navLinkStyles}
                 to="/about"
                 className={
                   routerPath === "/about"
@@ -290,7 +298,7 @@ const Navbar = () => {
             </StyledDiv1>
           </section>
         )}
-        <StyledDiv1>
+        <StyledDiv1   style={{display:'none'}}>
           <FontAwesomeDiv
             className="nav-achour text-white mx-0"
             onMouseEnter={handleMouseEnter}
@@ -298,6 +306,7 @@ const Navbar = () => {
             <i className="fas fa-user-alt fa-2x"></i>
           </FontAwesomeDiv>
           <Menu
+            style={{display:'none'}}
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleClose}
@@ -312,7 +321,7 @@ const Navbar = () => {
               },
             }}
           >
-            {!userSignIn ? (
+           <> {!userSignIn ? (
               <StyledProfilediv>
                 <StyledBtn
                   variant="contained"
@@ -334,6 +343,7 @@ const Navbar = () => {
               </StyledBtn>
               </StyledProfilediv>
             )}
+            </>
           </Menu>
         </StyledDiv1>
       </StyledNav>

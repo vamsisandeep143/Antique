@@ -71,8 +71,8 @@ function App() {
               <Route path="/login" element={<AdminLogin />} />
               <Route path="/loginComp" element={<Login />} />
               <Route path="/product/:productID" element={<ProductDetails setContextData={setContextData} contextData={contextData} />} >
-              <Route path= "Description" index element = {<DescriptionInfo/>}></Route>
-              <Route path = "Specifications" element = {<Specifications/>}></Route>
+              <Route path= "Description" index element = {<DescriptionInfo contextData={contextData}/>}></Route>
+              <Route path = "Specifications" element = {<Specifications contextData={contextData}/>}></Route>
               
               </Route>
               

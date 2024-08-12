@@ -1,4 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
+// import Tabs from '@mui/material/Tabs';
+// import Tab from '@mui/material/Tab';
+// import {CustomTab} from './CustomTab'
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Magnify from "./Magnify";
@@ -13,7 +16,8 @@ import ChooseAlternatives from "./ChooseAlternatives";
 const ProductDetails = () => {
   const { productID } = useParams();
   const [data, setData] = useState([]);
-  const [filteredItem, setFilteredItem] = useState();
+  const [quantity, setQuantity] = useState(1);
+  const [filteredItem, setFilteredItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isFavourite, setIsFavourite] = useState(false);
   const [, , addToCart] = useContext(store);
@@ -31,7 +35,7 @@ const ProductDetails = () => {
   };
 
   useEffect(() => {
-    data.map((item) => {
+    data.forEach((item) => {
       if (item.id === productID) {
         setFilteredItem(item);
         setLoading(false);
@@ -43,6 +47,12 @@ const ProductDetails = () => {
     getData();
   }, []);
 
+  useEffect(() => {
+    if (filteredItem) {
+      setQuantity(filteredItem.qty || 1);
+    }
+  }, [filteredItem]);
+
   const addToFavourites = () => {
     setIsFavourite(!isFavourite);
     toast.success("Added to Favourites");
@@ -51,6 +61,51 @@ const ProductDetails = () => {
   const removeFromFavourites = () => {
     setIsFavourite(!isFavourite);
     toast.error("Removed from Favourites");
+  };
+
+  const handleQuantityPlus = () => {
+    try {
+      let addedCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];
+      const itemIndex = addedCartItems.findIndex(item => item.id === filteredItem.id);
+      
+      if (itemIndex === -1) {
+        // Item not in cart, add it with quantity 1
+        const newItem = { ...filteredItem, qty: 1 };
+        addedCartItems.push(newItem);
+        setQuantity(1);
+      } else {
+        // Item already in cart, increment its quantity
+        const newQty = addedCartItems[itemIndex].qty + 1;
+        addedCartItems[itemIndex].qty = newQty;
+        setQuantity(newQty);
+      }
+
+      sessionStorage.setItem('cart', JSON.stringify(addedCartItems));
+    } catch (error) {
+      console.error("Error updating cart:", error);
+    }
+  };
+
+  const handleClickMinus = () => {
+    try {
+      let addedCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];
+      const itemIndex = addedCartItems.findIndex(item => item.id === filteredItem.id);
+
+      if (itemIndex !== -1) {
+        const newQty = Math.max(0, addedCartItems[itemIndex].qty - 1);
+        addedCartItems[itemIndex].qty = newQty;
+        setQuantity(newQty);
+
+        // Remove item from cart if qty is 0
+        if (newQty === 0) {
+          addedCartItems = addedCartItems.filter(item => item.id !== filteredItem.id);
+        }
+
+        sessionStorage.setItem('cart', JSON.stringify(addedCartItems));
+      }
+    } catch (error) {
+      console.error("Error updating cart:", error);
+    }
   };
 
   return loading ? (
@@ -66,20 +121,21 @@ const ProductDetails = () => {
     </Box>
   ) : (
     <>
-      {/* <Container>
+      <Container>
         <LeftColumn>
           <Magnify imageURL={filteredItem?.imageUrl} />
           <div>
-            <h1>Antique type : {filteredItem?.txtVal.item}</h1>
-            <h3>Antique Quantity {filteredItem?.txtVal.item}</h3>
-            <div class="qty">
-              <button class="btn-minus"><i class="fa fa-minus"></i></button>
-              <input type="text" value="1" />
-              <button class="btn-plus"><i class="fa fa-plus"></i></button>
+            <h1>Antique type: {filteredItem?.txtVal.item}</h1>
+            <h3>Antique Quantity: {quantity}</h3>
+            <div className="qty">
+              <button className="btn-minus" onClick={handleClickMinus}>
+                <i className="fa fa-minus"></i>
+              </button>
+              <input type="text" value={quantity} readOnly />
+              <button className="btn-plus" onClick={handleQuantityPlus}>
+                <i className="fa fa-plus"></i>
+              </button>
             </div>
-
-
-
           </div>
         </LeftColumn>
         <RightColumn>
@@ -88,7 +144,7 @@ const ProductDetails = () => {
             <StyledLink to="Description">Description</StyledLink>
             <StyledLink to="Specifications">Specifications</StyledLink>
           </NavContainer>
-          <Outlet />
+          <Outlet context = {filteredItem} />
           <Actions>
             {!isFavourite ? (
               <FavButton onClick={addToFavourites}>
@@ -103,6 +159,16 @@ const ProductDetails = () => {
             )}
             <CartButton onClick={async () => {
               await addToCart(filteredItem);
+
+              let storedItems = sessionStorage.getItem('cart') ? JSON.parse(sessionStorage.getItem('cart')) : [];
+              const itemIndex = storedItems.findIndex(item => item.id === filteredItem.id);
+              
+              if (itemIndex === -1) {
+                storedItems.push({ ...filteredItem, qty: 1 });
+              }
+
+              sessionStorage.setItem('cart', JSON.stringify(storedItems));
+
               navigate('/add-to-cart');
             }}>
               <span>Add To Cart</span>
@@ -110,90 +176,7 @@ const ProductDetails = () => {
           </Actions>
         </RightColumn>
       </Container>
-      <ChooseAlternatives /> */}
-       <div className="container product-details-page">
-        <section className="product-details-container">
-          <div className="image-container">
-            <Magnify imageURL={filteredItem?.imageUrl} />
-          </div>
-          <div className="info-container">
-            <h1 className="product-name">{filteredItem?.txtVal.item}</h1>
-            <p className="product-description">
-              Step back in time with this exquisite Antique Victorian Silver
-              Pocket Watch, a true testament to the elegance and craftsmanship
-              of the 19th century. This meticulously preserved timepiece, dating
-              back to the late 1800s, boasts a stunning sterling silver case
-              adorned with intricate floral engravings, showcasing the
-              exceptional artistry of the Victorian era.
-            </p>
-            <p className="product-description">
-              The watch features a pristine porcelain dial with Roman numerals
-              and delicate blued steel hands, encased in a crystal-clear glass
-              cover. Its mechanical movement is a marvel of precision
-              engineering, offering a glimpse into the ingenuity of watchmakers
-              from a bygone era. The back cover opens to reveal the inner
-              workings, allowing you to appreciate the intricate details and
-              craftsmanship that have stood the test of time.
-            </p>
-            <p className="product-description">
-              This antique pocket watch is more than just a timekeeper; it's a
-              piece of history, a conversation starter, and a collector's dream.
-              Whether you're an avid collector of antique timepieces or simply
-              appreciate the beauty of Victorian craftsmanship, this silver
-              pocket watch is a timeless treasure that will add a touch of
-              sophistication and charm to any collection. Don't miss the
-              opportunity to own a piece of history that transcends generations
-              and tells a story of elegance and refinement.
-            </p>
-            <div
-              style={{
-                marginTop: "20px",
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              {!isFavourite ? (
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <i
-                    className="far fa-heart"
-                    style={{ fontSize: "large" }}
-                    onClick={addToFavourites}
-                  ></i>
-                  <h4 style={{ marginLeft: "10px" }}>Add To Favourites</h4>
-                </div>
-              ) : (
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <i
-                    className="fa-solid fa-heart"
-                    style={{ fontSize: "large" }}
-                    onClick={removeFromFavourites}
-                  ></i>
-                  <h4 style={{ marginLeft: "10px" }}>Remove from Favourites</h4>
-                </div>
-              )}
-              <button
-                style={{
-                  padding: "10px",
-                  border: "none",
-                  backgroundColor: "#382925",
-                  color: "#fff",
-                  borderRadius: "5px",
-                }}
-                onClick={async () => {
-                  await addToCart(filteredItem);
-                  navigate("/add-to-cart");
-                }}
-              >
-                <span style={{ fontSize: "14px" }}>Add To Cart</span>
-              </button>
-            </div>
-            <section className="container-fluid">
-            <ChooseAlternatives/>
-            </section>
-          </div>
-        </section>
-      </div>
+      <ChooseAlternatives />
       <Footer />
     </>
   );
