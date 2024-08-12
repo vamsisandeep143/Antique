@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { motion } from 'framer-motion';
 import './ContactUs.css';
 
@@ -9,7 +10,7 @@ const StyledAnchor = styled.a`
   margin: 4px;
 `;
 
-const StyledFooterLink = styled.p`
+const StyledFooterLink = styled(NavLink)`
   font-size: 14px;
   color: #fff;
   margin: 4px;
@@ -20,9 +21,9 @@ const Footer = () => {
     <div style={{ backgroundColor: '#382925', color: '#fff', width: '100%', display: 'flex', justifyContent: 'space-around', marginTop: '10px', padding: '10px 0' }}>
       <div>
         <h2 className='m-4'>Company</h2>
-        <StyledFooterLink>Our Journey</StyledFooterLink>
-        <StyledFooterLink>Our Products</StyledFooterLink>
-        <StyledFooterLink>Contact US</StyledFooterLink>
+        <StyledFooterLink to = '/about'>Our Journey</StyledFooterLink>
+        <StyledFooterLink to = '/our-products'>Our Products</StyledFooterLink>
+        <StyledFooterLink to= '/contactus' >Contact US</StyledFooterLink>
         <StyledFooterLink>Terms and Conditions</StyledFooterLink>
       </div>
 
@@ -30,9 +31,8 @@ const Footer = () => {
         <h2 className='m-4'>Contact US</h2>
         <StyledFooterLink>Through Call - 416 887 2485</StyledFooterLink>
         <StyledFooterLink>Business Address</StyledFooterLink>
-        <StyledFooterLink>3278 Tremaine Road</StyledFooterLink>
         <StyledFooterLink>Burlington,</StyledFooterLink>
-        <StyledFooterLink>ON L7M OX9</StyledFooterLink>
+        <StyledFooterLink>ONTARIO</StyledFooterLink>
       </div>
 
       <div>
