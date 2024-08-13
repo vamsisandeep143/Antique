@@ -12,11 +12,18 @@
 	height: 0;
 	padding: 20px;
 	text-decoration: none;
+    z-index: 999;
 	border-radius: 50%;
 	animation-name: pulse;
 	animation-duration: 1.5s;
 	animation-timing-function: ease-out;
 	animation-iteration-count: infinite;
+}
+
+.btn-whatsapp-pulse :hover{
+
+text-decoration: none !important;
+    
 }
 
 @keyframes pulse {
