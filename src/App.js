@@ -34,6 +34,7 @@ import ProductDetailsList from './Components/ProductDetailsList';
 import { Description } from '@mui/icons-material';
 import DescriptionInfo from './Components/DescriptionInfo';
 import Specifications from './Components/Specifications';
+import WhatupIcon from './Components/WhatupIcon';
 // import photo from '../Assets/background.jpg';
 
 export const store = createContext({});
@@ -108,6 +109,7 @@ function App() {
           </Routes>
           <ToastContainer />
           <Footer />
+          <WhatupIcon/>
           <BackToTop/>
         </BrowserRouter>
       </store.Provider>

@@ -45,7 +45,7 @@ const Footer = () => {
                 </div>
                 <div>
                 <h2 className='m-4'>Social Connect</h2>
-                    <StyledAnchor className='m-4' href="https://wa.me/9491118102?text=Hello%2C%20Srinivas!" target='_blank'><i class="fa fa-whatsapp" aria-hidden="true"></i></StyledAnchor>
+                    <StyledAnchor className='m-4' href="https://wa.me/9494704184?text=Hello%2C%20Sandeep!" target='_blank'><i class="fa fa-whatsapp" aria-hidden="true"></i></StyledAnchor>
                     <StyledAnchor clStyledAnchorssNStyledAnchorme='m-4' href='https://www.instStyledAnchorgram.com/vangara_srinivas/' target='_blank'><i class="fa-brands fa-facebook-f"></i></StyledAnchor>
                     <StyledAnchor className='m-4' href='https://www.linkedin.com/in/vangara-srinivas-b2a983127/' target='_blank'><i class="fa-brands fa-instagram"></i></StyledAnchor>
                     <StyledAnchor className='m-4' href='https://github.com/vangarasrinivas?tab=repositories' target='_blank'><i class="fa-brands fa-twitter"></i></StyledAnchor>
