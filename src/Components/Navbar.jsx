@@ -352,3 +352,118 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+// import React, { useState } from 'react';
+// import './Navbar.css'; // Assuming you will add CSS separately
+
+// const Navbar = () => {
+//   const [dropdown, setDropdown] = useState(null);
+
+//   const handleMouseEnter = (menu) => {
+//     setDropdown(menu);
+//   };
+
+//   const handleMouseLeave = () => {
+//     setDropdown(null);
+//   };
+
+//   return (
+//     <nav className="navbar">
+//       <ul className="navbar-list">
+//         <li
+//           className="navbar-item"
+//           onMouseEnter={() => handleMouseEnter('home')}
+//           onMouseLeave={handleMouseLeave}
+//         >
+//           <a href="/">Home &#x25BC;</a>
+//           {dropdown === 'home' && (
+//             <div className="dropdown">
+//               <ul>
+//                 <li><a href="/home/subpage1">Subpage 1</a></li>
+//                 <li><a href="/home/subpage2">Subpage 2</a></li>
+//               </ul>
+//             </div>
+//           )}
+//         </li>
+//         <li
+//           className="navbar-item"
+//           onMouseEnter={() => handleMouseEnter('about')}
+//           onMouseLeave={handleMouseLeave}
+//         >
+//           <a href="/about">About us &#x25BC;</a>
+//           {dropdown === 'about' && (
+//             <div className="dropdown">
+//               <ul>
+//                 <li><a href="/about/team">Our Team</a></li>
+//                 <li><a href="/about/history">Our History</a></li>
+//               </ul>
+//             </div>
+//           )}
+//         </li>
+//         <li
+//           className="navbar-item"
+//           onMouseEnter={() => handleMouseEnter('consulting')}
+//           onMouseLeave={handleMouseLeave}
+//         >
+//           <a href="/consulting">IT Consulting &#x25BC;</a>
+//           {dropdown === 'consulting' && (
+//             <div className="dropdown">
+//               <ul>
+//                 <li><a href="/consulting/strategy">IT Strategy</a></li>
+//                 <li><a href="/consulting/solutions">Solutions</a></li>
+//               </ul>
+//             </div>
+//           )}
+//         </li>
+//         <li
+//           className="navbar-item"
+//           onMouseEnter={() => handleMouseEnter('services')}
+//           onMouseLeave={handleMouseLeave}
+//         >
+//           <a href="#">IT Services &#x25BC;</a>
+//           {dropdown === 'services' && (
+//             <div className="dropdown">
+//               <ul>
+//                 <li><a href="/services/product-development">Product Development</a></li>
+//                 <li><a href="/services/outsourcing">IT Outsourcing</a></li>
+//                 <li><a href="/services/managed-services">Managed Services</a></li>
+//               </ul>
+//             </div>
+//           )}
+//         </li>
+//         <li
+//           className="navbar-item"
+//           onMouseEnter={() => handleMouseEnter('careers')}
+//           onMouseLeave={handleMouseLeave}
+//         >
+//           <a href="/careers">Careers &#x25BC;</a>
+//           {dropdown === 'careers' && (
+//             <div className="dropdown">
+//               <ul>
+//                 <li><a href="/careers/openings">Job Openings</a></li>
+//                 <li><a href="/careers/internships">Internships</a></li>
+//               </ul>
+//             </div>
+//           )}
+//         </li>
+//         <li
+//           className="navbar-item"
+//           onMouseEnter={() => handleMouseEnter('contact')}
+//           onMouseLeave={handleMouseLeave}
+//         >
+//           <a href="/contact">Contact us &#x25BC;</a>
+//           {dropdown === 'contact' && (
+//             <div className="dropdown">
+//               <ul>
+//                 <li><a href="/contact/email">Email Us</a></li>
+//                 <li><a href="/contact/locations">Our Locations</a></li>
+//               </ul>
+//             </div>
+//           )}
+//         </li>
+//       </ul>
+//     </nav>
+//   );
+// };
+
+// export default Navbar;

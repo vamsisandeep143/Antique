@@ -23,6 +23,17 @@ const ImageGallery = () => {
         'https://hips.hearstapps.com/hmg-prod/images/close-up-of-blossoming-rose-flower-royalty-free-image-1580853844.jpg?crop=0.668xw:1.00xh;0.248xw,0&resize=980:*'
     ]
     const [count, setCount] = useState(0)
+    // function AnimatedText({ text }) {
+    //   return (
+    //     <div className="animated-text">
+    //       {text.split('').map((char, index) => (
+    //         <span key={index} className="letter">
+    //           {char}
+    //         </span>
+    //       ))}
+    //     </div>
+    //   );
+    // }
     return (
         <>
           <div
@@ -31,6 +42,7 @@ const ImageGallery = () => {
         data-bs-ride="carousel"
         style={{ width: "100%", margin: "auto" }}
       >
+        
         <div
           style={{
             zIndex: 99,
@@ -55,23 +67,32 @@ const ImageGallery = () => {
             textAlign: "center",
           }}
         >
-          <h1
-            style={{
-              //   zIndex: 99,
-              //   top: "50%",
-              //   position: "absolute",
-              //   color: "#DAA520",
-              fontFamily: "Mukta, sans-serif",
-              fontWeight: "bold",
-              fontSize: "36px",
-            }}
-          >
-            Welcome to Creative Antiqueology
-          </h1>
-          <p style={{ fontSize: "22px" }}>
+          <div>
+            <span
+              className="BannerNamewel"
+              style={{
+                fontFamily: "Mukta, sans-serif",
+                fontWeight: "bold",
+                fontSize: "29px",
+              }}
+            >
+              {"Welcome\u00A0"}
+            </span>
+            <span
+              className="BannerName"
+              style={{
+                fontFamily: "Mukta, sans-serif",
+                fontWeight: "bold",
+                fontSize: "29px",
+              }}
+            >
+              {"To Creative Antiqueology"}
+            </span>
+          </div>
+          <p style={{ fontSize: "22px" }} className="BannerSubHeading">
             Discover the Elegance of Yesteryears
           </p>
-          <p style={{ fontSize: "14px" }}>
+          <p style={{ fontSize: "14px" }} p className="BannerTab">
             we believe that every piece of history has a story to tell. Our
             curated collection of antiques brings you the charm and elegance of
             bygone eras, where every item is a testament to exquisite

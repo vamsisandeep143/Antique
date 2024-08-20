@@ -1,9 +1,12 @@
 // FormComponent.jsx
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { TextField, Button, Grid, Container, Typography } from '@mui/material';
 import Paypal from './Paypal';
+import { store } from '../App';
 
 const Shop = () => {
+  
+    const [, , , ,,total,] = useContext(store);
     const [formData, setFormData] = useState({
       email: '',
       product: '',
@@ -28,7 +31,7 @@ const Shop = () => {
   
     return (
       <section className='shop-page'>
-        <Paypal />
+        <Paypal total={total} />
       </section>
 
       

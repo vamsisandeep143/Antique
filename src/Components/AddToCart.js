@@ -11,10 +11,13 @@ const AddToCart = () => {
   const [, , , cart,removeFromCart,,setTotal] = useContext(store);
   const navigate = useNavigate()
 
+  console.log('cart'+JSON.stringify(cart));
+
   const totalAmount=()=>{
     var amount =0
     cart?.map((data,i) => {
-      amount = amount + 99
+      
+      amount = amount + parseInt(data.item.txtVal.originalPrice)
     })
     setTotal(amount)
     return amount
@@ -57,7 +60,7 @@ const AddToCart = () => {
                     <h4>{data.item.txtVal.item}</h4>
                 </div>
               </td>
-              <td><h5>${99}</h5></td>
+              <td><h5>${data.item.txtVal.originalPrice}</h5></td>
             </tr>
           </table>
             </div>

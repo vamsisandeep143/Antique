@@ -49,7 +49,6 @@ const Styledh1 = Styled.h3`
     max-width: 80%;
     margin: 0 auto;
     text-align: justify;
-
 `;
 
 const Home = () => {

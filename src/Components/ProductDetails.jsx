@@ -108,6 +108,8 @@ const ProductDetails = () => {
     }
   };
 
+  console.log('filteredItem'+JSON.stringify(filteredItem));
+
   return loading ? (
     <Box
       sx={{

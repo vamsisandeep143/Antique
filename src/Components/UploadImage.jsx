@@ -2,6 +2,11 @@ import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import background from "../Assets/background.jpg";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import TextField from '@mui/material/TextField'; // Import TextField for DateTimePicker
+
 import "./Upload.css";
 import {
   deleteObject,
@@ -22,7 +27,6 @@ import {
 } from "firebase/firestore";
 import {
   Button,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
@@ -37,8 +41,9 @@ const UploadImage = () => {
   const [originalPrice, setOriginalPrice] = useState("");
   const [discountPrice, setDiscountPrice] = useState("");
   const [description, setDescription] = useState("");
-
-  console.log(contextData);
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [createdDate, setCreatedDate] = useState(null); // State for date
 
   const handleImageChange = async (e) => {
     const image = e.target.files[0];
@@ -50,7 +55,6 @@ const UploadImage = () => {
         const storageRef = ref(storage, `images/${image.name}`);
         await uploadBytes(storageRef, image);
         const downloadURL = await getDownloadURL(storageRef);
-        console.log("Image URL:", downloadURL); // Debugging line
         setImageUrl(downloadURL);
       } catch (error) {
         console.error("Error uploading image:", error);
@@ -61,6 +65,10 @@ const UploadImage = () => {
   };
 
   const handleChange = (e) => setText(e.target.value);
+
+  const handleDateChange = (newValue) => {
+    setCreatedDate(newValue);
+  };
 
   const handleClick = async () => {
     if (!text || !imageUrl) {
@@ -76,6 +84,9 @@ const UploadImage = () => {
           originalPrice: originalPrice,
           discountPrice: discountPrice,
           description: description,
+          weight: weight,
+          height: height,
+          createdDate: createdDate ? createdDate.toISOString() : null,
         },
         imageUrl: imageUrl,
       });
@@ -86,6 +97,9 @@ const UploadImage = () => {
           originalPrice: originalPrice,
           discountPrice: discountPrice,
           description: description,
+          weight: weight,
+          height: height,
+          createdDate: createdDate ? createdDate.toISOString() : null,
         },
         imageUrl: imageUrl,
       };
@@ -100,7 +114,6 @@ const UploadImage = () => {
     try {
       const dataDb = await getDocs(valRef);
       const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
-      console.log("Fetched Data:", allData); // Debugging line
       setData(allData);
     } catch (error) {
       console.error("Error fetching data from Firestore:", error);
@@ -145,8 +158,8 @@ const UploadImage = () => {
             <div className="col-6">
               <div className="row mb-4">
                 <div className="col-6">
-                <label>choose the antique item here:</label>
-                    </div>
+                  <label>choose the antique item here:</label>
+                </div>
                 <div className="col-6">
                   <InputLabel id="demo-simple-select-label">Antique</InputLabel>
                   <Select
@@ -169,10 +182,10 @@ const UploadImage = () => {
                   <label>Price</label>
                 </div>
                 <div className="col-6">
-                  {" "}
                   <input
                     type="number"
-                    name="price" className="custom-input"
+                    name="price"
+                    className="custom-input"
                     value={originalPrice}
                     onChange={(e) => setOriginalPrice(e.target.value)}
                   />
@@ -183,43 +196,83 @@ const UploadImage = () => {
                   <label>discountPrice</label>
                 </div>
                 <div className="col-6">
-                  {" "}
                   <input
                     type="number"
                     name="price"
-                    value={discountPrice}  className="custom-input"
+                    value={discountPrice}
+                    className="custom-input"
                     onChange={(e) => setDiscountPrice(e.target.value)}
                   />
                 </div>
               </div>
               <div className="row mb-4">
                 <div className="col-6">
-                  {" "}
                   <label>description</label>
                 </div>
                 <div className="col-6">
-                  {" "}
                   <input
                     type="textarea"
                     name="description"
-                    value={description} className="custom-input"
+                    value={description}
+                    className="custom-input"
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
               </div>
               <div className="row mb-4">
-              <div className="col-6">
-                  {" "}
+                <div className="col-6">
+                  <label>Weight in lbs</label>
+                </div>
+                <div className="col-6">
+                  <input
+                    type="text"
+                    name="Weight"
+                    value={weight}
+                    className="custom-input"
+                    onChange={(e) => setWeight(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="row mb-4">
+                <div className="col-6">
+                  <label>Height in Inches</label>
+                </div>
+                <div className="col-6">
+                  <input
+                    type="text"
+                    name="height"
+                    value={height}
+                    className="custom-input"
+                    onChange={(e) => setHeight(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="row mb-4">
+                <div className="col-6">
+                  <label>Created Date</label>
+                </div>
+                <div className="col-6">
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DateTimePicker
+                      label="Created Date"
+                      value={createdDate}
+                      onChange={handleDateChange}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </LocalizationProvider>
+                </div>
+              </div>
+              <div className="row mb-4">
+                <div className="col-6">
                   <label>Choose image</label>
                 </div>
                 <div className="col-6">
-                  <input type="file" onChange={handleImageChange} />                 
+                  <input type="file" onChange={handleImageChange} />
                 </div>
-                
               </div>
               <div className="row mb-4">
-              <div className="col-12 pt-4">
-                <button onClick={handleClick} disabled={uploading} className="upload-btn">
+                <div className="col-12 pt-4">
+                  <button onClick={handleClick} disabled={uploading} className="upload-btn">
                     {uploading ? "Uploading..." : "Upload Image"}
                   </button>
                 </div>
@@ -233,7 +286,6 @@ const UploadImage = () => {
             <img src={imageUrl} alt="uploaded" style={{ maxWidth: 150 }} />
           )}
           {data.map((value) => {
-            console.log(value);
             return (
               <section className="upload-preview-item" key={value.id}>
                 <div className="upload-image-container">
@@ -244,12 +296,20 @@ const UploadImage = () => {
                   />
                 </div>
                 <h1 className="item-desp">
-                  <span className="info">Item : </span>
+                  <span className="info">Item: </span>
                   <span className="value">{value.txtVal?.item}</span>
                 </h1>
                 <h1 className="item-desp">
                   <span className="info">Price:</span>
                   <span className="value">{value.txtVal?.originalPrice}</span>
+                </h1>
+                <h1 className="item-desp">
+                  <span className="info">Weight: </span>
+                  <span className="value">{value.txtVal?.weight}</span>
+                </h1>
+                <h1 className="item-desp">
+                  <span className="info">Height:</span>
+                  <span className="value">{value.txtVal?.height}</span>
                 </h1>
                 <h1 className="item-desp">
                   <span className="info">Discount:</span>
@@ -258,6 +318,10 @@ const UploadImage = () => {
                 <h1 className="item-desp">
                   <span className="info">Description:</span>
                   <span className="value">{value.txtVal?.description}</span>
+                </h1>
+                <h1 className="item-desp">
+                  <span className="info">Created Date:</span>
+                  <span className="value">{value.txtVal?.createdDate}</span>
                 </h1>
                 <Button
                   onClick={() => handleDelete(value.id, value.imageUrl)}
