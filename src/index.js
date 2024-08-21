@@ -13,7 +13,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 
 const initialOptions = {
-  "client-id": "AU96jz_pLaFJvrbleZXDGz8H0wnKFFo8UlJTDEB7hLAXQuvbY0s8aCEnQROm-BfhwwmwZpR1hjU40cOr",
+  "client-id": "ATWaSe3qzmdur1ZbBgPxk2frBtGUhgeyAb0ws0LJX0AivZm9NQqZ8iaHFbzRYE41xk6knf3o9rDpt5WJ",
   currency: "USD",
   intent: "capture",
 };
