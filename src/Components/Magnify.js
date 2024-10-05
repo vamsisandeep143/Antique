@@ -13,8 +13,8 @@ const Magnify = ({ imageURL }) => {
             alt: "Wristwatch by Ted Baker London",
             isFluidWidth: true,
             src: imageURL,
-            // width:'200px',
-            // height:'300px'
+            width:'200px',
+            height:'300px'
           },
           largeImage: {
             src: imageURL,
@@ -23,8 +23,8 @@ const Magnify = ({ imageURL }) => {
           },
           isHintEnabled: true,
           enlargedImageContainerDimensions: {
-            width: 600,
-            height: 500
+            width: '100%',
+            height: '100%'
           },
         }}
       />

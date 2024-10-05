@@ -19,10 +19,18 @@
   }
   
   .navbar-item a {
-    color: white;
+    color: #444444;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
     text-decoration: none;
-    font-weight: bold;
     padding: 0.5rem 1rem;
+  }
+  .custom-nav .nav-achour p{
+    color: #444444;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
   }
   
   .navbar-item a:hover {

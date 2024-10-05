@@ -1,12 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
-import { auth, db } from "./Firebase";
+import app, { auth, db } from "./Firebase";
 import { toast } from "react-toastify";
 import { getDoc, doc } from "firebase/firestore";
+import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 import { store } from "../App";
 import "./AdminDashboard.css";
 import ProfilePic from "./ProfilePic";
 import Example from "./Example";
+import { collection, getDocs } from "firebase/firestore";
+import { Calendar } from "../Components/Calender";
+import { BarChart } from "@mui/x-charts/BarChart";
 import {
   CartesianGrid,
   Legend,
@@ -23,7 +27,9 @@ import {
 const AdminDashboard = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [contextData, setContextData] = useContext(store);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [images, setImages] = useState([]);
 
   const fetchUserDetails = async () => {
     auth.onAuthStateChanged(async (user) => {
@@ -139,6 +145,48 @@ const AdminDashboard = () => {
     { name: "Page G", uv: 3490, pv: 4300, amt: 2100 },
   ];
 
+  const [data1, setData1] = useState([]);
+
+  const fetchImages = async () => {
+    const storage = getStorage(app);
+    const listRef = ref(storage, "images/");
+
+    try {
+      const res = await listAll(listRef);
+      const urls = await Promise.all(
+        res.items.map((item) => getDownloadURL(item))
+      );
+      setImages(urls);
+    } catch (error) {
+      console.error("Error fetching images:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getData = async () => {
+    const valRef = collection(db, "textData");
+    try {
+      const dataDb = await getDocs(valRef);
+      const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
+      console.log("Fetched Data our products:", allData);
+      setData1(allData);
+    } catch (error) {
+      console.error("Error fetching data from Firestore:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchImages();
+    getData();
+  }, []);
+
+  const findLength = (type) => {
+    // console.log({data1})
+    const items = data1?.filter((i) => i?.txtVal?.item == type);
+    return items?.length || 0;
+  };
+
   return (
     <div className="container">
       <div className="dashboard-container container-fluid">
@@ -150,23 +198,35 @@ const AdminDashboard = () => {
           </div>
           <div className="col d-flex align-items-center justify-content-end">
             <div className="d-flex justify-content-end">
-              <button className="btn btn-secondary me-2 custom-btn-primary" onClick={handleLogOut}>
+              <button
+                className="btn btn-secondary me-2 custom-btn-primary"
+                onClick={handleLogOut}
+              >
                 Log Out
               </button>
-              <button className="btn btn-secondary custom-btn-primary" onClick={navigateToGallery}>
+              <button
+                className="btn btn-secondary custom-btn-primary"
+                onClick={navigateToGallery}
+              >
                 Go to Gallery
               </button>
             </div>
           </div>
         </div>
         <div className="row">
-          <div className="col-6">
+          <div className="col-6 mb-5">
             <div className="card">
               <div
                 className="card-body"
-                style={{ width: "100%", height: "400px" }}
+                style={{
+                  width: "100%",
+                  height: "400px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
-                <ResponsiveContainer width="100%" height="100%">
+                {/* <ResponsiveContainer width="100%" height="100%">
                   <PieChart width={730} height={250}>
                     <Pie
                       data={data01}
@@ -189,7 +249,34 @@ const AdminDashboard = () => {
                       label
                     />
                   </PieChart>
-                </ResponsiveContainer>
+                </ResponsiveContainer> */}
+                <BarChart
+                  series={[
+                    {
+                      data: [
+                        findLength("Brass"),
+                        findLength("Bronze"),
+                        findLength("Furniture"),
+                      ],
+                      itemStyle: {
+                        color: "#0079c1", // Setting the bar color to #0079c1
+                      },
+                    },
+                  ]}
+                  height={290}
+                  xAxis={[
+                    {
+                      data: ["Brass", "Bronze", "Furniture", "Paintings"],
+                      scaleType: "band",
+                      colorMap: {
+                        type: "piecewise",
+                        thresholds: [0],
+                        colors: ["#055d6b", "#0079c1", "blue"],
+                      },
+                    },
+                  ]}
+                  margin={{ top: 10, bottom: 30, left: 40, right: 10 }}
+                ></BarChart>
               </div>
             </div>
           </div>
@@ -197,9 +284,26 @@ const AdminDashboard = () => {
             <div className="card">
               <div
                 className="card-body"
-                style={{ width: "100%", height: "400px",textAlign:"center",display:"flex",alignItems:"center",justifyContent:"center" }}
+                style={{
+                  width: "100%",
+                  height: "400px",
+                  textAlign: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
                 {userDetails ? <ProfilePic /> : <p>Loading</p>}
+              </div>
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="card">
+              <div
+                className="card-body"
+                style={{ width: "100%", height: "400px" }}
+              >
+                <Calendar />
               </div>
             </div>
           </div>

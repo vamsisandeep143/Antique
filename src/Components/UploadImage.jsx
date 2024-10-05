@@ -158,7 +158,7 @@ const UploadImage = () => {
             <div className="col-6">
               <div className="row mb-4">
                 <div className="col-6">
-                  <label>choose the antique item here:</label>
+                  <label className="custom-form-lable">choose the antique item here:</label>
                 </div>
                 <div className="col-6">
                   <InputLabel id="demo-simple-select-label">Antique</InputLabel>
@@ -179,7 +179,7 @@ const UploadImage = () => {
               </div>
               <div className="row mb-4">
                 <div className="col-6">
-                  <label>Price</label>
+                <label className="custom-form-lable">Price</label>
                 </div>
                 <div className="col-6">
                   <input
@@ -193,7 +193,7 @@ const UploadImage = () => {
               </div>
               <div className="row mb-4">
                 <div className="col-6">
-                  <label>discountPrice</label>
+                <label className="custom-form-lable">discountPrice</label>
                 </div>
                 <div className="col-6">
                   <input
@@ -207,7 +207,7 @@ const UploadImage = () => {
               </div>
               <div className="row mb-4">
                 <div className="col-6">
-                  <label>description</label>
+                <label className="custom-form-lable">description</label>
                 </div>
                 <div className="col-6">
                   <input
@@ -221,7 +221,7 @@ const UploadImage = () => {
               </div>
               <div className="row mb-4">
                 <div className="col-6">
-                  <label>Weight in lbs</label>
+                <label className="custom-form-lable">Weight in lbs</label>
                 </div>
                 <div className="col-6">
                   <input
@@ -235,7 +235,7 @@ const UploadImage = () => {
               </div>
               <div className="row mb-4">
                 <div className="col-6">
-                  <label>Height in Inches</label>
+                <label className="custom-form-lable">Height in Inches</label>
                 </div>
                 <div className="col-6">
                   <input
@@ -249,7 +249,7 @@ const UploadImage = () => {
               </div>
               <div className="row mb-4">
                 <div className="col-6">
-                  <label>Created Date</label>
+                <label className="custom-form-lable">Created Date</label>
                 </div>
                 <div className="col-6">
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -264,7 +264,7 @@ const UploadImage = () => {
               </div>
               <div className="row mb-4">
                 <div className="col-6">
-                  <label>Choose image</label>
+                <label className="custom-form-lable">Choose image</label>
                 </div>
                 <div className="col-6">
                   <input type="file" onChange={handleImageChange} />
@@ -296,31 +296,31 @@ const UploadImage = () => {
                   />
                 </div>
                 <h1 className="item-desp">
-                  <span className="info">Item: </span>
+                  <span className="info">Item</span>
                   <span className="value">{value.txtVal?.item}</span>
                 </h1>
                 <h1 className="item-desp">
-                  <span className="info">Price:</span>
+                  <span className="info">Price</span>
                   <span className="value">{value.txtVal?.originalPrice}</span>
                 </h1>
                 <h1 className="item-desp">
-                  <span className="info">Weight: </span>
+                  <span className="info">Weight</span>
                   <span className="value">{value.txtVal?.weight}</span>
                 </h1>
                 <h1 className="item-desp">
-                  <span className="info">Height:</span>
+                  <span className="info">Height</span>
                   <span className="value">{value.txtVal?.height}</span>
                 </h1>
                 <h1 className="item-desp">
-                  <span className="info">Discount:</span>
+                  <span className="info">Discount</span>
                   <span className="value">{value.txtVal?.discountPrice}</span>
                 </h1>
                 <h1 className="item-desp">
-                  <span className="info">Description:</span>
+                  <span className="info">Description</span>
                   <span className="value">{value.txtVal?.description}</span>
                 </h1>
                 <h1 className="item-desp">
-                  <span className="info">Created Date:</span>
+                  <span className="info">Created Date</span>
                   <span className="value">{value.txtVal?.createdDate}</span>
                 </h1>
                 <Button

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap');
+
 .App {
   text-align: center;
 }
@@ -5,6 +7,17 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+body{
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+    color: #232323;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: .5px;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -36,27 +49,212 @@
     transform: rotate(360deg);
   }
 }
-.page-wrapper{
+.page-wrapper {
   max-width: 80%;
   margin: 0 auto;
   background: #f9f9f9;
   padding: 60px 60px;
 }
-.page-title{
+.page-title {
   text-align: center;
   margin-bottom: 30px;
   font-size: 28px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   text-transform: uppercase;
 }
-.custom-nav{
+.custom-nav {
   display: flex;
   margin-left: auto;
 }
-.custom-nav .nav-achour{
+.custom-nav .nav-achour {
   margin: 0px 15px !important;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-family: 'Roboto',sans-serif;
 }
-.custom-nav .nav-achour p{
+.custom-nav .nav-achour p {
+  font-family: Times, "Times New Roman", Georgia, serif;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
   margin: 0px 0px !important;
+  position: relative; /* This is necessary for the ::after pseudo-element */
+  padding-bottom: 5px; /* Adds some space for the underline */
+}
+
+.custom-nav .nav-achour p::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -22px;
+  width: 0; /* Initially, the underline is not visible */
+  height: 3px;
+  background-color: #ffffff;
+  transition: width 0.3s ease; /* Animation effect */
+}
+
+.custom-nav .nav-achour p:hover::after {
+  width: 100%; /* On hover, the underline expands */
+}
+
+/* Footer Styles */
+.custom-footer{
+  background: url('./Assets/footer-bg.png') no-repeat;
+  background-color: azure;
+  background-size: cover;
+  background-position: center;
+  padding: 60px 0px 0px;
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center */
+}
+.footer-block__heading {
+  margin-bottom: 1rem;
+  margin-top: 0;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--footer-heading-color);
+}
+.max-w-160{
+  max-width: 160px;
+}
+.footer-logo-block{
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items: center;
+}
+.footer-logo-text{
+  font-size: 1.5em;
+  font-weight: 500;
+  color: #444444;
+  line-height: 26px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+.footer-bottom {
+  background:#055d6b;
+  border-top: 1px solid #e9e9e9;
+  padding: 10px 0;
+  margin-top: 30px;
+  color: #ffffff;
+}
+.footer__copyright{
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 26px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+/* Footer Styles */
+
+.custom-loader{
+  width: 100%;
+  height: calc(100vh - 300px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.45);
+}
+.nav-container {
+  position: relative;
+}
+
+.nav-achour {
+  position: relative;
+}
+.nav-achour .custom-nav-dropdown{
+  /* display: none; */
+}
+.custom-nav-dropdown {
+  min-width:120px;
+  position: absolute;
+  top:72px;
+  left:2px;
+  right: 0;
+  background: #f9f9f9;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 1;
+  display: none;
+  transform: translateY(20px);
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  color: #444444;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px); /* Initial position for animation */
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+.nav-achour:hover .custom-nav-dropdown {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0); /* Move to the original position */
+}
+.custom-nav-dropdown ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.custom-nav-dropdown ul li{
+  padding: 8px 0;
+  border-bottom: 1px solid #e9e9e9;
+  cursor: pointer;
+}
+.custom-nav-dropdown ul li:last-child{
+  border-bottom: none;
+}
+.custom-nav-dropdown ul li a:hover{
+  color: #055d6b;
+  font-weight: 500;
+}
+/* App.css */
+.carousel-caption-custom h3 {
+  color: #ffffff;
+  font-family: 'poppins', sans-serif;
+  font-size:32px;
+  line-height: 48px;
+  font-weight: 300;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  animation: fadeInDown 1s ease-in-out;
+}
+
+.carousel-caption-custom p {
+  color: #dddddd;
+  font-family: 'poppins', sans-serif;
+  font-size:20px;
+  line-height: 32px;
+  font-weight: 400;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  animation: fadeInUp 1s ease-in-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

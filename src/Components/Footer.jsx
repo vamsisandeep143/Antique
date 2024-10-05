@@ -18,7 +18,7 @@ const StyledFooterLink = styled(NavLink)`
 
 const Footer = () => {
   return (
-    <div style={{ backgroundColor: '#382925', color: '#fff', width: '100%', display: 'flex', justifyContent: 'space-around', marginTop: '10px', padding: '10px 0' }}>
+    <div className='custom-footer'>
       <div>
         <h2 className='m-4'>Company</h2>
         <StyledFooterLink to = '/about'>Our Journey</StyledFooterLink>

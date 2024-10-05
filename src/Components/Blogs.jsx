@@ -121,6 +121,7 @@ const Blogs = () => {
   }));
 
   return (
+    <section className="container">
     <section className="our-products-page">
       <h1 className="our-products-page-title">New Antique Arrivals</h1>
 
@@ -212,7 +213,7 @@ const Blogs = () => {
               <Grid container spacing={2}>
                 {filteredData?.map((item, index) => (
                   <Grid
-                    className="productCard"
+                    className="productCard1 new_productCard"
                     item
                     xs={4}
                     key={item.id}
@@ -229,8 +230,8 @@ const Blogs = () => {
                           objectFit: "contain",
                         }}
                       />
-                      <h5>{item.txtVal.description}</h5>
-                      <h5>{item.txtVal.originalPrice}</h5>
+                      <h5 className="prd-name">{item.txtVal.description}</h5>
+                      <h5 className="prd-price">{item.txtVal.originalPrice}</h5>
                       <h5 className="discountBadge">
                         {item.txtVal.discountPrice + " " + "OFF /-"}
                       </h5>
@@ -239,6 +240,7 @@ const Blogs = () => {
                 ))}
               </Grid>
             </Box>
+    </section>
     </section>
   );
 };

@@ -1,0 +1,269 @@
+$primary-color: #eeeeee;
+$secondary-color: #195499;
+@mixin flexbox-col {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+@mixin flexbox-row {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	justify-content: space-around;
+}
+@mixin font-arial {
+	font-family: arial;
+	font-weight: normal;
+}
+
+button:focus,
+select:focus,
+input {
+	outline: 0;
+}
+.outer {
+	padding: 1vw 0 1vw 0;
+	// margin-left: 34%;
+	// transform: translateX(-50%);
+	.wrapper {
+		margin: auto;
+		position: static;
+		display: flex;
+		.flip-container-left,
+		.flip-container-right {
+			.flipper {
+				transform-style: preserve-3d;
+				position: relative;
+				height: inherit;
+				.btn {
+					width: 4vw;
+					height: 4vw;
+					cursor: pointer;
+					border-radius: 50%;
+					&:hover {
+						opacity: 0.5;
+					}
+				}
+				.btn-prev,
+				.btn-next {
+					border: 0.25vw $secondary-color solid;
+					font-weight: bold;
+					font-size: 1vw;
+				}
+				.select-month {
+					height: 2vw;
+					cursor: pointer;
+					font-size: 1.5vw;
+					border: none;
+					border-left: 0.25vw solid $secondary-color;
+					border-right: 0.25vw solid $secondary-color;
+				}
+				.input-year {
+					width: 4vw;
+					height: 2vw;
+					font-size: 1.5vw;
+					text-align: center;
+					border: none;
+					border-bottom: 0.25vw solid $secondary-color;
+				}
+				.container-event {
+					@include flexbox-row;
+					.input-time {
+						width: 4vw;
+						height: 2vw;
+						font-size: 1.5vw;
+						text-align: center;
+						border: none;
+						border-bottom: 0.25vw solid $secondary-color;
+					}
+					.btn-submit {
+						border: 0.25vw $secondary-color solid;
+					}
+				}
+				.input-event {
+					margin-top: 1vw;
+					width: 12vw;
+					height: 2vw;
+					font-size: 1.5vw;
+					text-align: center;
+					border: none;
+					border-bottom: 0.25vw solid $secondary-color;
+				}
+				.option-month {
+					color: $primary-color;
+					background-color: $secondary-color;
+				}
+				.front-left,
+				.back-left {
+					border-bottom-left-radius: 3vw;
+					border-top-left-radius: 3vw;
+					.btn-flip {
+						font-size: 1vw;
+					}
+				}
+			}
+			.front-right,
+			.back-right {
+				border-bottom-right-radius: 3vw;
+				border-top-right-radius: 3vw;
+			}
+			.back {
+				transform: rotateX(180deg);
+			}
+			.front,
+			.back {
+				backface-visibility: hidden;
+				position: absolute;
+			}
+		}
+	}
+	.flip-container-left {
+		.toggle {
+			transform: rotateX(180deg);
+		}
+		.flipper {
+			transition: 1s ease-out;
+
+			.front {
+				background-color: $secondary-color;
+				@include flexbox-col;
+				* {
+					background-color: $secondary-color;
+
+					color: $primary-color;
+				}
+				.btn-flip {
+					border: 0.25vw $primary-color solid;
+					margin-top: 3vw;
+				}
+				h1 {
+					margin: 0;
+					font-size: 9vw;
+					@include font-arial;
+				}
+				h2 {
+					margin: 0;
+					font-size: 1.5vw;
+					@include font-arial;
+				}
+			}
+			.back {
+				background-color: $primary-color;
+				@include flexbox-col;
+				* {
+					background-color: $primary-color;
+					color: $secondary-color;
+				}
+				.btn-flip {
+					border: 0.25vw $secondary-color solid;
+					margin-top: 6vw;
+				}
+
+				background-color: $primary-color;
+				color: $secondary-color;
+			}
+		}
+	}
+	.flip-container-right {
+		.toggle {
+			transform: rotateX(180deg);
+		}
+		.flipper {
+			transition: 1s ease-in;
+			.front {
+				background-color: $primary-color;
+				* {
+					background-color: $primary-color;
+					color: $secondary-color;
+				}
+				@include flexbox-col;
+				justify-content: space-around;
+				overflow: hidden;
+				* {
+					overflow: hidden;
+				}
+				.container-date-picker {
+					@include flexbox-row;
+				}
+				.container-day {
+					display: grid;
+					text-align: center;
+					width: 100%;
+					justify-content: center;
+					align-items: center;
+					grid-template-columns: repeat(7, 3.4vw);
+					.weekday,
+					.day-block {
+						height: 2.5vw;
+						@include font-arial;
+						font-weight: bold;
+						font-size: 1.2vw;
+					}
+					.day-block {
+						cursor: pointer;
+						border: 0.7vw solid $primary-color;
+						border-radius: 50%;
+						transition: 1s;
+						.inner {
+							transition: background-color 1s;
+							position: relative;
+							top: 50%;
+							transform: translateY(-50%);
+						}
+					}
+					.active {
+						* {
+							background-color: $secondary-color;
+							color: $primary-color;
+						}
+						background-color: $secondary-color;
+						border: 0.7vw solid $secondary-color;
+						border-radius: 50%;
+					}
+				}
+			}
+			.back {
+				background-color: $secondary-color;				
+				overflow: hidden;
+
+				* {
+					background-color: $secondary-color;
+					color: $primary-color;
+					@include font-arial;
+				}
+				.event{
+					@include flexbox-row;
+					border-bottom: 0.1vw $primary-color solid;
+					.event-time{
+						padding-left: 1vw;
+						min-width: 4vw;
+						flex-grow: 0;
+					}
+					.event-name{
+						flex-grow: 2;
+					}
+				}
+			}
+		}
+	}
+
+  .flip-container-left{
+  padding-right:180px !important;
+
+
+  }
+	.flip-container-left,
+	.front-left,
+	.back-left {
+		width: 19vw;
+		height: 28vw;
+	}
+	.flip-container-right,
+	.front-right,
+	.back-right {   
+		width: 100%;
+		height: 28vw;
+	}
+}

@@ -65,9 +65,11 @@ const ProductDetails = () => {
 
   const handleQuantityPlus = () => {
     try {
-      let addedCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];
-      const itemIndex = addedCartItems.findIndex(item => item.id === filteredItem.id);
-      
+      let addedCartItems = JSON.parse(sessionStorage.getItem("cart")) || [];
+      const itemIndex = addedCartItems.findIndex(
+        (item) => item.id === filteredItem.id
+      );
+
       if (itemIndex === -1) {
         // Item not in cart, add it with quantity 1
         const newItem = { ...filteredItem, qty: 1 };
@@ -80,7 +82,7 @@ const ProductDetails = () => {
         setQuantity(newQty);
       }
 
-      sessionStorage.setItem('cart', JSON.stringify(addedCartItems));
+      sessionStorage.setItem("cart", JSON.stringify(addedCartItems));
     } catch (error) {
       console.error("Error updating cart:", error);
     }
@@ -88,8 +90,10 @@ const ProductDetails = () => {
 
   const handleClickMinus = () => {
     try {
-      let addedCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];
-      const itemIndex = addedCartItems.findIndex(item => item.id === filteredItem.id);
+      let addedCartItems = JSON.parse(sessionStorage.getItem("cart")) || [];
+      const itemIndex = addedCartItems.findIndex(
+        (item) => item.id === filteredItem.id
+      );
 
       if (itemIndex !== -1) {
         const newQty = Math.max(0, addedCartItems[itemIndex].qty - 1);
@@ -98,88 +102,128 @@ const ProductDetails = () => {
 
         // Remove item from cart if qty is 0
         if (newQty === 0) {
-          addedCartItems = addedCartItems.filter(item => item.id !== filteredItem.id);
+          addedCartItems = addedCartItems.filter(
+            (item) => item.id !== filteredItem.id
+          );
         }
 
-        sessionStorage.setItem('cart', JSON.stringify(addedCartItems));
+        sessionStorage.setItem("cart", JSON.stringify(addedCartItems));
       }
     } catch (error) {
       console.error("Error updating cart:", error);
     }
   };
 
-  console.log('filteredItem'+JSON.stringify(filteredItem));
+  console.log("filteredItem" + JSON.stringify(filteredItem));
 
   return loading ? (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <CircularProgress style={{ color: "#382925" }} />
-    </Box>
+    <div className="custom-loader">
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CircularProgress style={{ color: "#382925" }} />
+      </Box>
+    </div>
   ) : (
     <>
-      <Container>
-        <LeftColumn>
-          <Magnify imageURL={filteredItem?.imageUrl} />
-          <div>
-            <h1>Antique type: {filteredItem?.txtVal.item}</h1>
-            <h3>Antique Quantity: {quantity}</h3>
-            <div className="qty">
-              <button className="btn-minus" onClick={handleClickMinus}>
-                <i className="fa fa-minus"></i>
-              </button>
-              <input type="text" value={quantity} readOnly />
-              <button className="btn-plus" onClick={handleQuantityPlus}>
-                <i className="fa fa-plus"></i>
-              </button>
+      <div className="container pt-5">
+        <section className="row">
+          <div className="col-lg-6 col-md-6 text-center">
+            <section className="w-100 position-relative mx-auto">
+              <Magnify imageURL={filteredItem?.imageUrl} />
+            </section>
+          </div>
+          <div className="col-lg-6 col-md-6">
+            <section className="pt-5">
+              <h1 className="product_title">{filteredItem?.txtVal.item}</h1>
+              <section className="product_tab">
+                <NavContainer>
+                  <StyledLink to="Description">Description</StyledLink>
+                  <StyledLink to="Specifications">Specifications</StyledLink>
+                </NavContainer>
+                <div className="d-flex p-4 justify-content-start tab-info">
+                <Outlet context={filteredItem} />
+                </div>
+              </section>
+              <Actions>
+                {!isFavourite ? (
+                  <div className="add-to-wishlist" onClick={addToFavourites}>
+                    <i
+                      className="far fa-heart"
+                      style={{ fontSize: "large" }}
+                    ></i>
+                    <h4 className="m-3">Add To Favourites</h4>
+                  </div>
+                ) : (
+                  <FavButton onClick={removeFromFavourites}>
+                    <i
+                      className="fa-solid fa-heart"
+                      style={{ fontSize: "large" }}
+                    ></i>
+                    <h4>Remove from Favourites</h4>
+                  </FavButton>
+                )}
+                <CartButton
+                  onClick={async () => {
+                    await addToCart(filteredItem);
+
+                    let storedItems = sessionStorage.getItem("cart")
+                      ? JSON.parse(sessionStorage.getItem("cart"))
+                      : [];
+                    const itemIndex = storedItems.findIndex(
+                      (item) => item.id === filteredItem.id
+                    );
+
+                    if (itemIndex === -1) {
+                      storedItems.push({ ...filteredItem, qty: 1 });
+                    }
+
+                    sessionStorage.setItem("cart", JSON.stringify(storedItems));
+
+                    navigate("/add-to-cart");
+                  }}
+                >
+                  <span>Add To Cart</span>
+                </CartButton>
+              </Actions>
+            </section>
+
+            <div className="prd-info-details">
+              <h1 className="product_single_vendor">
+                Antique type: {filteredItem?.txtVal.item}
+              </h1>
+              <h3 className="product_single_vendor form_label">
+                Antique Quantity: {quantity}
+              </h3>
+              <div className="quantity">
+                <button className="quantity_button" onClick={handleClickMinus}>
+                  <i className="fa fa-minus"></i>
+                </button>
+                <input
+                  type="text"
+                  className="quantity_input"
+                  value={quantity}
+                  readOnly
+                />
+                <button
+                  className="quantity_button"
+                  onClick={handleQuantityPlus}
+                >
+                  <i className="fa fa-plus"></i>
+                </button>
+              </div>
             </div>
           </div>
-        </LeftColumn>
-        <RightColumn>
-          <h1>{filteredItem?.txtVal.item}</h1>
-          <NavContainer>
-            <StyledLink to="Description">Description</StyledLink>
-            <StyledLink to="Specifications">Specifications</StyledLink>
-          </NavContainer>
-          <Outlet context = {filteredItem} />
-          <Actions>
-            {!isFavourite ? (
-              <FavButton onClick={addToFavourites}>
-                <i className="far fa-heart" style={{ fontSize: 'large' }}></i>
-                <h4>Add To Favourites</h4>
-              </FavButton>
-            ) : (
-              <FavButton onClick={removeFromFavourites}>
-                <i className="fa-solid fa-heart" style={{ fontSize: 'large' }}></i>
-                <h4>Remove from Favourites</h4>
-              </FavButton>
-            )}
-            <CartButton onClick={async () => {
-              await addToCart(filteredItem);
-
-              let storedItems = sessionStorage.getItem('cart') ? JSON.parse(sessionStorage.getItem('cart')) : [];
-              const itemIndex = storedItems.findIndex(item => item.id === filteredItem.id);
-              
-              if (itemIndex === -1) {
-                storedItems.push({ ...filteredItem, qty: 1 });
-              }
-
-              sessionStorage.setItem('cart', JSON.stringify(storedItems));
-
-              navigate('/add-to-cart');
-            }}>
-              <span>Add To Cart</span>
-            </CartButton>
-          </Actions>
-        </RightColumn>
-      </Container>
-      <ChooseAlternatives />
-      <Footer />
+        </section>
+      </div>
+      <section className="container">
+        <ChooseAlternatives />
+      </section>      
     </>
   );
 };
@@ -212,17 +256,37 @@ const RightColumn = styled.div`
 
 const NavContainer = styled.div`
   display: flex;
-  justify-content: space-around;
-  background: #ff6f61;
+  justify-content: start;
+  text-align: center;
+  border: 1px solid #e9e9e9;
+  background-color: #fff;
 `;
 
 const StyledLink = styled(Link)`
   padding: 10px 20px;
-  color: white;
   text-decoration: none;
-
+  color: #232323;
+  padding: 9px 12px;
+  border: 1px solid transparent;
+  background: #f5f5f5;
+  letter-spacing: 1px;
+  text-decoration: none;
+  -webkit-transition: all 0.9s;
+  -moz-transition: all 0.9s;
+  -o-transition: all 0.9s;
+  transition: all 0.9s;
+  font-size: 14px;
+  font-weight: 500;
+margin-right:5px;
   &:hover {
-    background-color: #000;
+    background-color: #055d6b;;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  &.active {
+    background-color: #055d6b;;
+    color: #ffffff;
+    text-decoration: none;
   }
 `;
 
@@ -244,12 +308,15 @@ const FavButton = styled.div`
 `;
 
 const CartButton = styled.button`
-  padding: 10px;
+  width: 45%;
+  margin: 0 5px;
+  padding: 15px 20px;
+  background: #055d6b;
+  color: #ffffff;
+  border-radius: 30px;
   border: none;
-  background-color: #382925;
-  color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
 
   span {
     font-size: 14px;

@@ -29,7 +29,7 @@
 }
 
 /* Our Products Styles */
-body{font-size: 14px;background: #f9f9f9;}
+/* body{font-size: 14px;background: #f9f9f9;} */
 .our-products-page{
     min-height:calc(100vh - 100px);
     padding: 50px 0px;
@@ -45,7 +45,7 @@ body{font-size: 14px;background: #f9f9f9;}
 .all-image-container{
     border-radius: 5px;
     padding: 20px;
-    background: #f9f9f9;
+    /* background: #f9f9f9; */
 }
 .image-filter-container{
     padding-bottom: 14px;
@@ -191,48 +191,45 @@ body{font-size: 14px;background: #f9f9f9;}
   }
 
   .filterButton {
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
+    padding: 10px 10px;
+    margin: 8px 0px 0px 0px;
     background-color: #fff;
     color: #333;
     cursor: pointer;
     transition: background-color 0.3s ease;
     border: 1px solid rgb(56, 41, 37);
     border-radius: 10px;
+    line-height: 32px;
+    border: 1px solid #eee;
+    text-align: center;
+    font-weight: 500;
+    width: calc(100% - 10px);
+    position: relative;
+    left: 5px;
 }
 
 .filterButton.active {
-    background-color: rgb(56, 41, 37);
+    background-color:#055d6b;
     color: #fff;
 }
 .discountBadge {
-  /* position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: #ff4d4d;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 0.9em;
-  font-weight: bold;
-  z-index: 10; */
-
-  position: absolute;
-    top:5%;
-    left: 5%;
-    background-color: rgb(56, 41, 37); 
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    background:#055d6b;
     color: #fff;
     padding: 10px;
-    border-radius: 0 0 10px 0; 
-    font-size: 0.9em;
+    border-radius: 0 0 10px 0;
+    font-size: 12px;
     font-weight: bold;
     text-align: center;
     line-height: 1.2em;
-    /* transform: rotate(-45deg);  */
-    width: 60px; 
-    height: 40px; 
+    /* transform: rotate(-45deg); */
+    width: 80px;
+    height: 40px;
     z-index: 10;
+
+
 }
 .discountBadge::before {
   /* content: "";
@@ -254,4 +251,201 @@ body{font-size: 14px;background: #f9f9f9;}
   /* box-shadow: 0 2px 5px rgba(0,0,0,0.1); */
   text-align: center;
   /* max-width: 300px; */
+}
+
+
+/* Custom Card design */
+.new_productCard{
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    padding: 0 !important;
+    position: relative;
+}
+.new_productCard img{
+    max-height: 240px;
+    max-width: 100%;
+}
+.prd-name{
+    letter-spacing: .06rem;
+    color: #232323;
+    line-height: 18px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 0;
+    font-size: 16px;
+    font-weight: 400;
+    margin-top:8px;
+    margin-bottom:8px;
+}
+.prd-price{
+    letter-spacing: .06rem;
+    color: #232323;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-bottom: 20px;
+}
+.imageMagnifier img{
+    /* width: auto !important;
+max-width: 100%;
+max-height: 400px;
+margin: 0 auto; */
+}
+.product_title {
+    color: #232323;
+    font-weight: 400;
+    text-transform: capitalize;
+    font-size: 26px;
+    line-height: 1.1;
+    letter-spacing: .5px;
+    margin-top: 0;
+    display: block;
+}
+.product_single_vendor {
+    font-weight: 500;
+    font-size: 14px;
+    color: #666;
+}
+.quantity {
+    border: 1px solid #e9e9e9;
+    position: relative;
+    width:160px;
+    display: inline-flex;
+    border-radius:30px;
+    margin-top: 16px;
+}
+.quantity_button {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    font-size: 1.8rem;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #787878;
+}
+.quantity_input {
+    color: currentColor;
+    font-size: 1.4rem;
+    font-weight: 500;
+    opacity: .85;
+    text-align: center;
+    background-color: transparent;
+    border: 0;
+    border-left: 1px solid #e9e9e9;
+    border-right: 1px solid #e9e9e9;
+    padding: 0 .5rem;
+    height: 4.5rem;
+    width: 100%;
+    flex-grow: 1;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.add-to-wishlist {
+    color: #232323;
+    font-size: 14px;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.add-to-wishlist i{
+    color: #777;
+}
+.form_label {
+    padding-left: 0;
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+.product_form_buttons>* {
+    width: 45%;
+    margin: 0 5px;
+}
+.product_tab {
+    text-align: center;
+    border: 1px solid #e9e9e9;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+.tab-info p{
+    text-align: left;
+    color: #232323;
+    font-weight: 600;
+    letter-spacing: .2px;
+    margin-bottom: 14px;
+    font-size: 15px;
+}
+
+.custom-tab {
+    color: #232323;
+    padding: 9px 12px;
+    border: 1px solid transparent;
+    background: #f5f5f5;
+    letter-spacing: 1px;
+    text-decoration: none;
+    -webkit-transition: all .9s;
+    -moz-transition: all .9s;
+    -o-transition: all .9s;
+    transition: all .9s;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 0;
+    position: relative;
+    z-index: 1;
+    display: block;
+    line-height: 20px;
+}
+.custom-primary-btn{
+    width: 45%;
+    margin: 0 5px;
+    padding: 15px 20px;
+    background: #055d6b;
+    color: #ffffff;
+    border-radius: 30px;
+    border: none;
+    font-size: 14px;
+    font-weight: 400;
+}
+/* Custom Card design */
+.sidebar{
+    display: flex;
+    align-items: self-start;
+    margin-top:32px;
+}
+.sidebar .left_column {
+    width: 240px;
+    display: block;
+    border: 1px solid #e9e9e9;
+    margin-bottom: 30px;
+    background: #fff;
+    position: sticky;
+    top:72px;
+    padding-bottom: 60px;
+}
+.sidebar .right_column {
+    width:calc(100% - 240px);
+    display: flex;
+    align-items: flex-start;
+    padding: 0px 0px 0px 20px;
+}
+.sidebar .left_column  .sidebar-title {
+    font-size: 16px;
+    padding: 15px;
+    text-align: left;
+    margin-bottom: 0;
+    display: block;
+    background: #f5f5f5;
+    color: #232323;
+    font-weight: 400;
+    letter-spacing: .5px;
+    line-height: 18px;    
 }

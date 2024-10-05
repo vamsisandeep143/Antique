@@ -14,8 +14,9 @@ import TestToast from "./TestToast";
 import { Menu, MenuItem, Box, IconButton } from "@mui/material";
 import styled from "@emotion/styled";
 import { auth } from "./Firebase";
-import cclogo from "../Assets/CCLogo.svg";
+import cclogo from "../Assets/CCLogo.png";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { motion } from 'framer-motion';
 import { BorderBottom } from "@mui/icons-material";
 
@@ -42,21 +43,14 @@ const StyledBtn = Styled(Button)`
 `;
 
 const Styledh1 = Styled.h3`
-
-// font-family:'Zen Antique Soft', serif;
-font-family: 'Roboto', sans-serif;
+font-family: 'Poppins', sans-serif;
 font-weight:600;
-// color:#767171;
-color:#fff;
-
-
+color:#ffffff;
+margin: 0px 8px !important;
+text-transform: uppercase;
 `;
 
 const StyledLink = Styled(NavLink)`
-
-  
-
-
 p{
 font-family: 'Roboto', sans-serif;
 display:inline;
@@ -107,20 +101,15 @@ padding:1rem;
 
 `;
 
-const navLinkStyles = ({isActive}) => {
+const navLinkStyles = ({ isActive }) => {
   return {
-  fontWeight:isActive?'bold':'normal',
-  borderBottom:isActive?'3px solid #000000': 'none',
-  paddingBottom:'2px',
-  color:'green',
-  
+    fontWeight: isActive ? '500' : 'normal', position: 'relative','text-decoration': 'none','color': '#000000',
   }
-    }
+}
 const StyledProfilediv = Styled.div`
 padding:0px 1rem;
-
-
 `;
+const CustomeDpLink = Styled(NavLink);
 
 const Navbar = () => {
   const [contextData, setContextData] = useContext(store);
@@ -166,12 +155,13 @@ const Navbar = () => {
   };
   const handleCart = () => {
     navigate('/add-to-cart');
-}
+  }
   return (
     <StyledDiv>
-      <StyledNav style={{ backgroundColor: "#382925", padding: "0 10px" }}>
-        <FlexDiv>
-          <img src={cclogo} height={"80"} alt="" />
+      <StyledNav style={{ backgroundColor: "#055d6b", padding: "0 10px", borderBottom: "1px solid #eee", height: "72px" }}>
+        <FlexDiv >
+          
+          <img src={cclogo} onClick={() => navigate('/')} height={"60"} alt="" style={{"cursor": "pointer"}} />
           {/* <StyledVideo autoPlay width="50" height="80" loop muted>
                         <source src={video} type="video/mp4" />
                         Your browser does not support the video tag.
@@ -181,7 +171,7 @@ const Navbar = () => {
         {userSignIn ? (
           <section className="custom-nav">
             <StyledLink
-              style= {navLinkStyles}
+              style={navLinkStyles}
               to="/Dashboard"
               className={
                 routerPath === "/Dashboard"
@@ -192,7 +182,7 @@ const Navbar = () => {
               <p>Dashboard</p>
             </StyledLink>
             <StyledLink
-             style= {navLinkStyles}
+              style={navLinkStyles}
               to="/load"
               className={
                 routerPath === "/load"
@@ -203,7 +193,7 @@ const Navbar = () => {
               <p>Upload Item</p>
             </StyledLink>
             <StyledLink
-              style= {navLinkStyles}
+              style={navLinkStyles}
               to="/about"
               className={
                 routerPath === "/about"
@@ -214,7 +204,7 @@ const Navbar = () => {
               <p>About</p>
             </StyledLink>
             <StyledLink
-              style= {navLinkStyles}
+              style={navLinkStyles}
               to="/our-products"
               className={
                 routerPath === "/our-products"
@@ -223,13 +213,15 @@ const Navbar = () => {
               }
             >
               <p>Our Products</p>
+
             </StyledLink>
+
           </section>
         ) : (
           <section className="custom-nav">
             <StyledDiv1>
               <StyledLink
-              style= {navLinkStyles}
+                style={navLinkStyles}
                 to="/"
                 className={
                   routerPath === "/"
@@ -240,7 +232,7 @@ const Navbar = () => {
                 <p>Home</p>
               </StyledLink>
               <StyledLink
-                style= {navLinkStyles}
+                style={navLinkStyles}
                 to="/blogs"
                 className={
                   routerPath === "/blogs"
@@ -248,11 +240,35 @@ const Navbar = () => {
                     : "nav-achour text-white"
                 }
               >
-                <p>What's New</p>
+                <p>Instant Checkout</p>
+                <ArrowDropDownIcon fontSize='medium'/>
+                <div className="custom-nav-dropdown">
+                  <ul className="list">
+                    <li><StyledLink style={navLinkStyles}
+                        to="/our-products/Brass">Brass</StyledLink></li>
+                    <li><StyledLink style={navLinkStyles}
+                to="/our-products/Bronze">Bronze</StyledLink></li>
+                    <li><StyledLink style={navLinkStyles}
+                to="/our-products/Furniture">Furniture</StyledLink></li>
+                    <li><StyledLink style={navLinkStyles}
+                to="/our-products/Paintings">Paintings</StyledLink></li>
+                  </ul>
+                </div>
               </StyledLink>
               <StyledLink
-                style= {navLinkStyles}
-                to="/our-products"
+                style={navLinkStyles}
+                to="/blogs"
+                className={
+                  routerPath === "/blogs"
+                    ? "nav-achour text-lightgrey"
+                    : "nav-achour text-white"
+                }
+              >
+                <p>New Arrivals</p>
+              </StyledLink>
+              <StyledLink
+                style={navLinkStyles}
+                to="/our-products/All"
                 className={
                   routerPath === "/our-products"
                     ? "nav-achour text-lightgrey"
@@ -263,7 +279,7 @@ const Navbar = () => {
               </StyledLink>
 
               <StyledLink
-                style= {navLinkStyles}
+                style={navLinkStyles}
                 to="/contactus"
                 className={
                   routerPath === "/contactus"
@@ -274,7 +290,7 @@ const Navbar = () => {
                 <p>Contact Us</p>
               </StyledLink>
               <StyledLink
-                style= {navLinkStyles}
+                style={navLinkStyles}
                 to="/about"
                 className={
                   routerPath === "/about"
@@ -285,20 +301,20 @@ const Navbar = () => {
                 <p>About</p>
               </StyledLink>
               <motion.div className="mx-4"
-      whileHover={{ scale: 1.2 }}
-      onHoverStart={e => console.log('Hover start')}
-      onHoverEnd={e => console.log('Hover end')}
-    >
-      <ShoppingCartIcon
-        fontSize='large'
-        sx={{ color: 'white' }}
-        onClick={handleCart}
-      />
-    </motion.div>
+                whileHover={{ scale: 1.2 }}
+                onHoverStart={e => console.log('Hover start')}
+                onHoverEnd={e => console.log('Hover end')}
+              >
+                <ShoppingCartIcon
+                  fontSize='large'
+                  sx={{ color: '#055d6b', cursor: 'pointer', fontSize: '30px' }}
+                  onClick={handleCart}
+                />
+              </motion.div>
             </StyledDiv1>
           </section>
         )}
-        <StyledDiv1   style={{display:'none'}}>
+        <StyledDiv1 style={{ display: 'none' }}>
           <FontAwesomeDiv
             className="nav-achour text-white mx-0"
             onMouseEnter={handleMouseEnter}
@@ -306,7 +322,7 @@ const Navbar = () => {
             <i className="fas fa-user-alt fa-2x"></i>
           </FontAwesomeDiv>
           <Menu
-            style={{display:'none'}}
+            style={{ display: 'none' }}
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleClose}
@@ -321,7 +337,7 @@ const Navbar = () => {
               },
             }}
           >
-           <> {!userSignIn ? (
+            <> {!userSignIn ? (
               <StyledProfilediv>
                 <StyledBtn
                   variant="contained"
@@ -337,10 +353,10 @@ const Navbar = () => {
                 </StyledBtn>
               </StyledProfilediv>
             ) : (
-                <StyledProfilediv>
-              <StyledBtn variant="contained" onClick={handleLogout}>
-                LogOut
-              </StyledBtn>
+              <StyledProfilediv>
+                <StyledBtn variant="contained" onClick={handleLogout}>
+                  LogOut
+                </StyledBtn>
               </StyledProfilediv>
             )}
             </>

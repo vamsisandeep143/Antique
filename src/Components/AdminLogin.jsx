@@ -126,10 +126,10 @@ const AdminLogin = () => {
               />
               <Box mt={2}>
                 <Button variant="contained" color="primary" type="submit" fullWidth sx={{
-                    backgroundColor: '#382925',
+                    backgroundColor: '#055d6b',
                     fontSize:'14px',
                     '&:hover': {
-                      backgroundColor: '#2e211e',
+                      backgroundColor: '#055d6b',
                     },
                   }}>
                   Login

@@ -163,7 +163,7 @@ const AdminSignUp = () => {
                   component="label"
                   fullWidth
                   sx={{
-                    backgroundColor: "#382925",
+                    backgroundColor: "#055d6b",
                     fontSize: "14px",
                     "&:hover": {
                       backgroundColor: "#2e211e",
@@ -182,10 +182,10 @@ const AdminSignUp = () => {
                     variant="contained"
                     fullWidth
                     sx={{
-                      backgroundColor: "#382925",
+                      backgroundColor: "#055d6b",
                       fontSize: "14px",
                       "&:hover": {
-                        backgroundColor: "#2e211e",
+                        backgroundColor: "#055d6b",
                       },
                     }}
                     type="submit"

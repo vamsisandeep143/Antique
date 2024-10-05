@@ -35,13 +35,17 @@ import { Description } from '@mui/icons-material';
 import DescriptionInfo from './Components/DescriptionInfo';
 import Specifications from './Components/Specifications';
 import WhatupIcon from './Components/WhatupIcon';
+import { Carousel } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // import photo from '../Assets/background.jpg';
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export const store = createContext({});
 
 
 function App() {
-
+  AOS.init();
   const [contextData, setContextData] = useState({
     login: false,
   });
@@ -66,13 +70,13 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />
-              <Route path="/our-products" element={<OurProducts />} />
+              <Route path="/our-products/:type" element={<OurProducts />} />
               <Route path="/signup" element={<AdminSignUp />} />
               <Route path = "/blogs" element = {<Blogs/>}></Route>
               <Route path="/login" element={<AdminLogin />} />
               <Route path="/loginComp" element={<Login />} />
               <Route path="/product/:productID" element={<ProductDetails setContextData={setContextData} contextData={contextData} />} >
-              <Route path= "Description" index element = {<DescriptionInfo contextData={contextData}/>}></Route>
+              <Route path= "Description"  element = {<DescriptionInfo contextData={contextData}/>}></Route>
               <Route path = "Specifications" element = {<Specifications contextData={contextData}/>}></Route>
               
               </Route>
