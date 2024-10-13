@@ -124,7 +124,7 @@ const OurProducts = () => {
 
   return (
     <section className="our-products-page">
-      <h1 className="our-products-page-title">Our Products</h1>
+      <h1 className="cc-page-title">Our Products</h1>
 
       <div className="all-image-container container">
         <div className="image-filter-container d-flex justify-content-end align-items-center">
@@ -190,7 +190,7 @@ const OurProducts = () => {
                         style={{ cursor: "pointer" }}
                         onClick={() => navigate(`/product/${item.id}`)}
                       >
-                        <Item>
+                        <Item className="product-item">
                           <img
                             src={item.imageUrl}
                             alt={index}

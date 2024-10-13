@@ -11,9 +11,9 @@ import item3 from "../Assets/icons/underwriter.png";
 import { Slideshow } from "./Slider"; // Ensure Slideshow is correctly imported
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import OurJourneyIcon from "../Assets/about/Our-Journey.jpg";
-import OurMissionIcon from "../Assets/about/Our-Mission.jpg";
-import WhatWeOfferIcon from "../Assets/about/What-We-Offer.jpg";
+import OurJourneyIcon from "../Assets/about/new/Our-Journey.jpg";
+import OurMissionIcon from "../Assets/about/new/Our-Mission.jpg";
+import WhatWeOfferIcon from "../Assets/about/new/What-We-Offer.jpg";
 
 const About = () => {
   const images = [Test, Test2, Test3, Test4, Test5];
@@ -45,7 +45,7 @@ const About = () => {
   return (
     <section className="mainContainerAbout">
       <div className="container pt-4">
-        <div className="page-title1 custom-page-title">About Us</div>
+        <div className="cc-page-title">About Us</div>
         {/* <section className="about-content mb-4">
           <div className="test1">
             <h3 className="about-info-title">Our Journey</h3>
@@ -83,7 +83,7 @@ const About = () => {
         <section className="about-info-block">
           <div className="container">
             <div className="row mb-8">
-              <div className="col-md-6 text-right">
+              <div className="col-md-6 text-center">
                 <img src={OurJourneyIcon} alt="about" className="img-fluid about-info-image" />
               </div>
               <div className="col-md-6">
@@ -100,12 +100,12 @@ const About = () => {
                 Our mission is to uncover the hidden stories within forgotten objects, breathing new life into antiques through creative repurposing and sharing their fascinating journeys through time. We champion a sustainable approach to design and appreciation for the past by sourcing and repurposing authentic antiques, honoring their history while minimizing our environmental impact. By offering a diverse range of high-quality antiques, we aim to preserve history and provide timeless pieces that can be cherished for generations. Through the art of Creative Antiqueology, we bridge the gap between eras, transforming forgotten treasures into unique and meaningful pieces for modern living.
                 </p>
               </div>
-              <div className="col-md-6 text-left">
+              <div className="col-md-6 text-center">
                 <img src={OurMissionIcon} alt="about" className="img-fluid about-info-image" />
               </div>
             </div>
             <div className="row mb-8">
-              <div className="col-md-6 text-right">
+              <div className="col-md-6 text-center">
                 <img src={WhatWeOfferIcon} alt="about" className="img-fluid about-info-image" />
               </div>
               <div className="col-md-6">

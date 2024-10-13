@@ -6,6 +6,7 @@ import "./ContactUs.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import emailjs from "@emailjs/browser";
+import contactusIcon from "../Assets/contact-us.jpg";
 
 const StyledAnchor = Styled.a`
   font-size: 20px;
@@ -82,11 +83,11 @@ const ContactUs = () => {
       <div className="container">
         <div className="row mt-4">
           <div className="col-12">
-            <h1 className="custom-page-title">GET IN TOUCH</h1>
+            <h1 className="custom-page-title">Contact Us</h1>
           </div>
-          <h3 className="col-6 mt-4">SEND US A MESSAGE</h3>
           <div className="row">
             <div className="col-6">
+            <h3 className="mt-4">SEND US A MESSAGE</h3>
               <form ref={form} onSubmit={postData}>
                 <TextField
                   className="w-100 mt-4 custom-input"
@@ -130,35 +131,32 @@ const ContactUs = () => {
                 </Button>
               </form>
               <ToastContainer />
-            </div>
-            <div className="col Verticalline"></div>
-            <div className="col-5">
-              <section className="social-content">
+              <section className="social-content d-none">
                 <h3 className="m-4">Social Connect</h3>
-                <div className="d-flex align-items-center justify-content-center">
+                <div className="d-flex justify-content-between align-items-center w-160">
                   <StyledAnchor
-                    className="custom-social-icons"
+                    className="social-button whatsapp"
                     href="https://wa.me/9491118102?text=Hello%2C%20Srinivas!"
                     target="_blank"
                   >
                     <i className="fa fa-whatsapp" aria-hidden="true"></i>
                   </StyledAnchor>
                   <StyledAnchor
-                    className="custom-social-icons"
+                    className="social-button fb"
                     href="https://www.instagram.com/vangara_srinivas/"
                     target="_blank"
                   >
                     <i className="fa-brands fa-facebook-f"></i>
                   </StyledAnchor>
                   <StyledAnchor
-                    className="custom-social-icons"
+                    className="social-button instagram"
                     href="https://www.linkedin.com/in/vangara-srinivas-b2a983127/"
                     target="_blank"
                   >
                     <i className="fa-brands fa-instagram"></i>
                   </StyledAnchor>
                   <StyledAnchor
-                    className="custom-social-icons"
+                    className="social-button twitter"
                     href="https://github.com/vangarasrinivas?tab=repositories"
                     target="_blank"
                   >
@@ -178,6 +176,11 @@ const ContactUs = () => {
                   </h4>
                 </div>
               </section>
+            </div>
+            {/* <div className="col Verticalline"></div> */}
+            <div className="col-6 d-flex justify-content-center align-items-start">
+              <img src={contactusIcon} alt="contact us"  className="w-100"/>
+              
             </div>
           </div>
         </div>

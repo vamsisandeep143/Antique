@@ -33,6 +33,7 @@ const AddToCart = () => {
   };
   return (
     <div className="container add-to-cart-page">
+      <div className="cc-page-title">Add to Cart</div>
       <section className="row">
         {cart?.length > 0 ? (
           <>

@@ -49,8 +49,14 @@
 
 .upload-preview-item {
   width: 100%;
-  border: 1px solid #d3d3d3;
+  border: 1px solid #e4e4e4;
+  background: var(--image-bg-color);
   padding: 16px;
+  border-radius: .25rem;
+}
+.upload-preview-item:hover{
+  border: 1px solid rgba(0,0,0,0.15);
+  background:var(--text-color-white);
 }
 .upload-preview-item .upload-image-container {
   width: 100%;

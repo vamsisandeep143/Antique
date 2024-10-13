@@ -151,7 +151,7 @@ const UploadImage = () => {
   return (
     <section className="upload-container">
       <div className="container">
-        <h2 className="upload-heading">Antique Collection</h2>
+        <h2 className="cc-page-title">Antique Collection</h2>
 
         <div className="input-group-container">
           <section className="row">

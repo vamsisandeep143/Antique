@@ -123,7 +123,7 @@ const Blogs = () => {
   return (
     <section className="container">
     <section className="our-products-page">
-      <h1 className="our-products-page-title">New Antique Arrivals</h1>
+      <h1 className="cc-page-title">New Antique Arrivals</h1>
 
       {/* <div className="all-image-container container">
         <div className="image-filter-container d-flex justify-content-end align-items-center">

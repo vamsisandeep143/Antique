@@ -1,46 +1,47 @@
 import React from "react";
-import { Button, TextField } from "@mui/material";
 import Styled from "styled-components";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import SendIcon from "@mui/icons-material/Send";
+import { NavLink} from "react-router-dom";
 import cclogo from "../Assets/CCLogo.png";
 import "./ContactUs.css";
 
-const StyledAnchor = Styled.a`
-font-size: 3.2rem;
-  color: #888888;
+const StyledAnchor = Styled.a`  
+  color:var(--text-color-white);
   line-height: 26px;
-    margin-bottom: 5px;
+  margin-bottom: 5px;
   display:block;
   transition: all 0.5s;
   text-decoration:none !important;
   &:hover{
-font-size: 3.5rem;
-    color: #055d6b;
+  font-size: 3.5rem;
+  color: var(--text-color-white);
 }
 
 `;
 const StyledFooterP = Styled.p`
-font-size: 1.4rem;
-line-height: 26px;
-    margin-bottom: 5px;
-  color: #888888;
+  font-size: 1.4rem;
+  line-height: 26px;
+  margin-bottom: 5px;
+  color:var(--text-color-white);
   display:block;
   transition: all 0.5s;
-text-decoration:none !important;
+  text-decoration:none !important;
+  &:hover{
+  font-size: 1.8rem;
+  color: var(--text-color-white);
+}
 `;
 
 const StyledFooterLink = Styled(NavLink)`
   font-size: 1.4rem;
   line-height: 26px;
-    margin-bottom: 5px;
-  color: #888888;
+  margin-bottom: 5px;
+  color:var(--text-color-white);
   display:block;
   transition: all 0.5s;
-text-decoration:none !important;
-&:hover{
-font-weight: 500;
-    color: #055d6b;
+  text-decoration:none !important;
+   &:hover{
+  font-size: 1.8rem;
+  color: var(--text-color-white);
 }
 `;
 
@@ -85,28 +86,28 @@ const Footer = () => {
                 <h2 className="footer-block__heading">Social Connect</h2>
                 <div className="d-flex justify-content-between align-items-center max-w-160">
                   <StyledAnchor
-                    className="mb-2"
+                    className="mb-2 social-button whatsapp"
                     href="https://wa.me/9494704184?text=Hello%2C%20Sandeep!"
                     target="_blank"
                   >
                     <i className="fa fa-whatsapp" aria-hidden="true"></i>
                   </StyledAnchor>
                   <StyledAnchor
-                    className="mb-2"
+                    className="mb-2 social-button fb"
                     href="https://www.instStyledAnchorgram.com/vangara_srinivas/"
                     target="_blank"
                   >
                     <i className="fa-brands fa-facebook-f"></i>
                   </StyledAnchor>
                   <StyledAnchor
-                    className="mb-2"
+                    className="mb-2 social-button instagram"
                     href="https://www.linkedin.com/in/vangara-srinivas-b2a983127/"
                     target="_blank"
                   >
                     <i className="fa-brands fa-instagram"></i>
                   </StyledAnchor>
                   <StyledAnchor
-                    className="mb-2"
+                    className="mb-2 social-button twitter"
                     href="https://github.com/vangarasrinivas?tab=repositories"
                     target="_blank"
                   >

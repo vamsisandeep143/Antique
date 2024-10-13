@@ -158,7 +158,7 @@ const Navbar = () => {
   }
   return (
     <StyledDiv>
-      <StyledNav style={{ backgroundColor: "#055d6b", padding: "0 10px", borderBottom: "1px solid #eee", height: "72px" }}>
+      <StyledNav style={{ backgroundColor: "#055d6b", padding: "0 10px", borderBottom: "1px solid rgba(255, 255, 255, 0.15)", height: "72px" }}>
         <FlexDiv >
           
           <img src={cclogo} onClick={() => navigate('/')} height={"60"} alt="" style={{"cursor": "pointer"}} />

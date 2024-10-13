@@ -225,17 +225,17 @@ border-radius: 50px;
     max-width: 100%;
 }
 .about-info-title{
-    font-size: 20px;
-    font-family: 'poppins', sans-serif;
-    line-height: 28px;
+    font-size: 24px;
+    font-family:var(--font-family);
+    line-height: 36px;
     font-weight: 500;
-    color: #055d6b;
+    color:var(--primary-color);
 }
 .para-info{
     font-size: 16px;
-    font-family: 'poppins', sans-serif;
+    font-family:var(--font-family);
     line-height: 28px;
-    color: #444444;
+    color:var(--text-paragraph-color);
 }
 .mb-8{
     margin-bottom: 50px;

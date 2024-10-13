@@ -29,9 +29,9 @@ const StyledAccodian1 = Styled.div`
 const Styledh1 = Styled.h3`
   font-family: 'Roboto', sans-serif;
   font-weight:400;
-  color:#055d6b;
-  font-size: 20px;
-  line-height: 28px;
+  color:var(--text-paragraph-color);
+  font-size:16px;
+  line-height:24px;
   max-width: 80%;
   margin: 0 auto;
   text-align: justify;
