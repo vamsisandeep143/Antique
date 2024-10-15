@@ -26,6 +26,15 @@ const StyledAccodian1 = Styled.div`
   padding: 10px 0px;
 `;
 
+const Interactivediv = Styled.div`
+border:1px solid #A0A0A0;
+width:1070px;
+margin-left:100px;
+padding:100px;
+border-radius:5px;
+
+
+`;
 const Styledh1 = Styled.h3`
   font-family: 'Roboto', sans-serif;
   font-weight:400;
@@ -137,8 +146,7 @@ const Home = () => {
         <div className="container home-card-coursel">
           <CardCousol />
         </div>
-        {/* <div><InteractiveMap/></div> */}
-
+        <Interactivediv><InteractiveMap/></Interactivediv>
         <div className="container my-4 pb-4">
           <section className="about-design row">
             <div className="col-12 mt-4">
