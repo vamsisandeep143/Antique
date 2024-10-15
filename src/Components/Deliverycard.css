@@ -1,0 +1,8 @@
+.Verticalline{
+    border: 1px solid #d3d3d3;
+    height: 100px;
+    width: 1px;
+    max-width: 5px;
+    margin: 0 30px;
+    padding: 0;
+    }

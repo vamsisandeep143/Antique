@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Styled from "styled-components";
 import HomeBanner from "./HomeBanner";
 import CardCousol from "./CardCousol";
+import Deliverycard from "./Deliverycard";
 import { InteractiveMap } from "./InteractiveMap";
 import {
   Accordion,
@@ -28,8 +29,8 @@ const StyledAccodian1 = Styled.div`
 
 const Interactivediv = Styled.div`
 border:1px solid #A0A0A0;
-width:1070px;
-margin-left:100px;
+width:1275px;
+margin-left:170px;
 padding:100px;
 border-radius:5px;
 
@@ -147,6 +148,7 @@ const Home = () => {
           <CardCousol />
         </div>
         <Interactivediv><InteractiveMap/></Interactivediv>
+        <Deliverycard/>
         <div className="container my-4 pb-4">
           <section className="about-design row">
             <div className="col-12 mt-4">

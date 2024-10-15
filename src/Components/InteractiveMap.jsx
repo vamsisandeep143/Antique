@@ -40,7 +40,7 @@ export const InteractiveMap = () => {
     .translate([400, 200]);        // Translate to the center
 
   return (
-    <div>
+    <div className='container'>
       <StyledH3>
         Currently, we are located at the below location. We will be expanding soon...
       </StyledH3>
