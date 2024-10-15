@@ -37,6 +37,7 @@ const UploadImage = () => {
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [text, setText] = useState("Brass");
+  const [booleanText,setBooleanText] = useState('true');
   const [data, setData] = useState([]);
   const [originalPrice, setOriginalPrice] = useState("");
   const [discountPrice, setDiscountPrice] = useState("");
@@ -66,6 +67,8 @@ const UploadImage = () => {
 
   const handleChange = (e) => setText(e.target.value);
 
+  const handleBooleanChange = (e) => setBooleanText(e.target.value);
+
   const handleDateChange = (newValue) => {
     setCreatedDate(newValue);
   };
@@ -81,6 +84,7 @@ const UploadImage = () => {
       const docRef = await addDoc(valRef, {
         txtVal: {
           item: text,
+          isDelivery:booleanText,
           originalPrice: originalPrice,
           discountPrice: discountPrice,
           description: description,
@@ -94,6 +98,7 @@ const UploadImage = () => {
         id: docRef.id,
         txtVal: {
           item: text,
+          isDelivery:booleanText,
           originalPrice: originalPrice,
           discountPrice: discountPrice,
           description: description,
@@ -177,6 +182,26 @@ const UploadImage = () => {
                   </Select>
                 </div>
               </div>
+              <div className="row mb-4">
+                <div className="col-6">
+                  <label className="custom-form-lable">Is Delivery option available:</label>
+                </div>
+                <div className="col-6">
+                  <InputLabel id="demo-simple-select-label">Is Delivery option available</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={booleanText}
+                    sx={{ minWidth: 200 }}
+                    label="Antique"
+                    onChange={handleBooleanChange}
+                  >
+                    <MenuItem value={"true"}>True</MenuItem>
+                    <MenuItem value={"false"}>False</MenuItem>
+                  </Select>
+                </div>
+              </div>
+
               <div className="row mb-4">
                 <div className="col-6">
                 <label className="custom-form-lable">Price</label>
@@ -310,6 +335,10 @@ const UploadImage = () => {
                 <h1 className="item-desp">
                   <span className="info">Height</span>
                   <span className="value">{value.txtVal?.height}</span>
+                </h1>
+                <h1 className="item-desp">
+                  <span className="info">Is Delivery available on this:</span>
+                  <span className="value">{value.txtVal?.isDelivery}</span>
                 </h1>
                 <h1 className="item-desp">
                   <span className="info">Discount</span>
