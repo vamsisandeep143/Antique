@@ -8,11 +8,17 @@ import { geoConicEqualArea, geoCentroid } from 'd3-geo';
 
 // Styled components
 const StyledH3 = styled.h3`
-  padding: 20px;
+  padding: 10px;
+  font-family:"EB Garamond", serif;
+  font-style:normal;
+  font-weight:500;
 `;
 
 const StyledH5 = styled.h5`
-  padding: 20px;
+  padding: 10px;
+  font-family:"EB Garamond", serif;
+  font-style:normal;
+  font-weight:400;
 
 `
 

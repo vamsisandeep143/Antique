@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./About.css";
+import Styled from "styled-components";
 import Test from "../Assets/AboutBackground1.jpg";
 import Test2 from "../Assets/About2.jpg";
 import Test3 from "../Assets/Aboutbackground1.jpeg";
@@ -8,12 +9,19 @@ import Test5 from "../Assets/Aboutbackground3.jpeg";
 import item1 from "../Assets/icons/check.png";
 import item2 from "../Assets/icons/service.png";
 import item3 from "../Assets/icons/underwriter.png";
+import { InteractiveMap } from "./InteractiveMap";
 import { Slideshow } from "./Slider"; // Ensure Slideshow is correctly imported
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import OurJourneyIcon from "../Assets/about/new/Our-Journey.jpg";
 import OurMissionIcon from "../Assets/about/new/Our-Mission.jpg";
 import WhatWeOfferIcon from "../Assets/about/new/What-We-Offer.jpg";
+
+const Interactivediv = Styled.div`
+border: 1px solid #FFFAFA;
+padding:100px;
+border-radius:5px;
+`;
 
 const About = () => {
   const images = [Test, Test2, Test3, Test4, Test5];
@@ -123,6 +131,7 @@ const About = () => {
             </div>
           </div>
         </section>
+        <Interactivediv className="container"><InteractiveMap/></Interactivediv>
         <section className="about-design row mt-4">
           <div className="col-12 mt-4">
             <div className="page-title">Why Choose Us?</div>

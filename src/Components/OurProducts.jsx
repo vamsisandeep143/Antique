@@ -5,6 +5,7 @@ import { Box, Grid, MenuItem, Paper, Select } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { collection, getDocs } from "firebase/firestore";
 import { useNavigate, useParams } from "react-router-dom";
+import packageIcon from '../Assets/icons/no-truck.png'
 import { Button } from "reactstrap";
 import "./Card.css";
 import "./OurProducts.css";
@@ -200,9 +201,10 @@ const OurProducts = () => {
                               objectFit: "contain",
                             }}
                           />
-                          <h5 className="prd-name">{item.txtVal.description}</h5>
+                          <h5 className="prd-name" title={item.txtVal.description}>{item.txtVal.description}</h5>
                           <h5 className="prd-price">{item.txtVal.originalPrice}</h5>
                           <h5 className="discountBadge">
+                          <div className="isDelivery">{item.isDelivery?'<img src={packageIcon} alt="delivery" height="40" />':""}</div>
                             {item.txtVal.discountPrice + " " + "OFF /-"}
                           </h5>
                         </Item>

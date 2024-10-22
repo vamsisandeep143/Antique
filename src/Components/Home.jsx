@@ -4,7 +4,7 @@ import Styled from "styled-components";
 import HomeBanner from "./HomeBanner";
 import CardCousol from "./CardCousol";
 import Deliverycard from "./Deliverycard";
-import { InteractiveMap } from "./InteractiveMap";
+
 import {
   Accordion,
   AccordionDetails,
@@ -27,21 +27,14 @@ const StyledAccodian1 = Styled.div`
   padding: 10px 0px;
 `;
 
-const Interactivediv = Styled.div`
-border:1px solid #A0A0A0;
-width:1275px;
-margin-left:170px;
-padding:100px;
-border-radius:5px;
 
 
-`;
 const Styledh1 = Styled.h3`
   font-family: 'Roboto', sans-serif;
   font-weight:400;
   color:var(--text-paragraph-color);
-  font-size:16px;
-  line-height:24px;
+  font-size:20px;
+  line-height:28px;
   max-width: 80%;
   margin: 0 auto;
   text-align: justify;
@@ -147,9 +140,9 @@ const Home = () => {
         <div className="container home-card-coursel">
           <CardCousol />
         </div>
-        <Interactivediv><InteractiveMap/></Interactivediv>
+       
         <Deliverycard/>
-        <div className="container my-4 pb-4">
+        <div className="container my-5 pb-5">
           <section className="about-design row">
             <div className="col-12 mt-4">
               <div className="page-title">Why Choose Us?</div>

@@ -23,7 +23,8 @@ const Paypal = ({total}) => {
             purchase_units: [
                 {
                     amount: {
-                        value: total,
+                        value: total.toFixed(2),
+                        currency_code: "CAD",  
                     },
                 },
             ],
