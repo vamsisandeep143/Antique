@@ -8,29 +8,37 @@ import { geoConicEqualArea, geoCentroid } from 'd3-geo';
 
 // Styled components
 const StyledH3 = styled.h3`
-  padding: 10px;
-  font-family:"EB Garamond", serif;
   font-style:normal;
   font-weight:500;
+  font-size: 24px;
+  font-family:var(--font-family);
+  line-height: 36px;
+  font-weight: 500;
+  color:var(--primary-color);
 `;
 
 const StyledH5 = styled.h5`
   padding: 10px;
-  font-family:"EB Garamond", serif;
   font-style:normal;
   font-weight:400;
+  font-size: 16px;
+  font-family:var(--font-family);
+  line-height: 28px;
+  color:var(--text-paragraph-color);
 
 `
 
 const StyledImage = styled.img`
-width:200px;
-height:200px;
+// width:200px;
+height:140px;
 `;
 
 const Styleddiv = styled.div`
 display:flex;
 flex-direction:row;
 align-items:center;
+border: 2px solid #055d6b;
+padding: 20px
 `;
 
 const markers = [
@@ -42,7 +50,7 @@ export const InteractiveMap = () => {
   const projection = geoConicEqualArea()
     .center([-106.3468, 56.1304])  // Center on Canada (longitude, latitude)
     .parallels([49, 77])           // Standard parallels for Canada
-    .scale(800)                    // Adjust the scale for your map
+    .scale(700)                    // Adjust the scale for your map
     .translate([400, 200]);        // Translate to the center
 
   return (
