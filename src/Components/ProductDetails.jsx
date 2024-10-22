@@ -143,7 +143,7 @@ const ProductDetails = () => {
               <h1 className="product_title">{filteredItem?.txtVal.item}</h1>
               <section className="product_tab">
                 <NavContainer>
-                  <StyledLink to="Description">Description</StyledLink>
+                  <StyledLink to="/product/${productID}">Description</StyledLink>
                   <StyledLink to="Specifications">Specifications</StyledLink>
                 </NavContainer>
                 <div className="d-flex p-4 justify-content-start tab-info">

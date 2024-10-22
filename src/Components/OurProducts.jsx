@@ -192,6 +192,7 @@ const OurProducts = () => {
                         onClick={() => navigate(`/product/${item.id}`)}
                       >
                         <Item className="product-item">
+                          
                           <img
                             src={item.imageUrl}
                             alt={index}
