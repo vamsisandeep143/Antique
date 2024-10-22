@@ -22,7 +22,7 @@ const ProductDetails = () => {
   const [isFavourite, setIsFavourite] = useState(false);
   const [, , addToCart] = useContext(store);
   const navigate = useNavigate();
-
+  const [, , , cart, removeFromCart, , setTotal] = useContext(store);
   const getData = async () => {
     const valRef = collection(db, "textData");
     try {
@@ -48,10 +48,23 @@ const ProductDetails = () => {
   }, []);
 
   useEffect(() => {
+    const fetchData = async () => {
     if (filteredItem) {
-      setQuantity(filteredItem.qty || 1);
+        const productData = JSON.parse(sessionStorage.getItem("cart"));
+        const reqQty = productData?.find((item) => {
+          return item.id === filteredItem.id;
+        });
+  
+        if (reqQty) {
+          setQuantity(reqQty.qty);
+        } else {
+          setQuantity(1);
     }
-  }, [filteredItem]);
+      }
+    };
+  
+    fetchData();
+  }, [filteredItem, cart]);
 
   const addToFavourites = () => {
     setIsFavourite(!isFavourite);
@@ -170,7 +183,7 @@ const ProductDetails = () => {
                 )}
                 <CartButton
                   onClick={async () => {
-                    await addToCart(filteredItem);
+                    await addToCart(filteredItem,quantity);
 
                     let storedItems = sessionStorage.getItem("cart")
                       ? JSON.parse(sessionStorage.getItem("cart"))

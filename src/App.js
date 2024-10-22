@@ -50,18 +50,44 @@ function App() {
     login: false,
   });
   const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
-  const addToCart = (item) => {
-    console.log(item,"item")
-    setCart((prevCart) => [...prevCart, {item}]);
+  const [total, setTotal] = useState(0); 
+   const addToCart = async(item,qty) => {
+    const existingCart= await JSON.parse(sessionStorage.getItem('cart'))
+    if(existingCart?.length){
+      let itemExists = false;
+      const updatedCart = await existingCart.map((data) => {
+        if (data.id === item.id) {
+          data.qty = qty; 
+          itemExists = true;
+        }
+        return data;
+      });
+
+      if (!itemExists) {
+        updatedCart.push({ ...item, qty });
+      }
+      sessionStorage.setItem('cart', JSON.stringify(updatedCart));
+      setCart(updatedCart);
+      
+    }else{
+      setCart((prevCart) => [...prevCart, {item,qty}]);
+    }
   };
-  const removeFromCart = (item)=>{
-    const filteredCart = cart.filter((cartItem)=> {
-      return cartItem.item.id != item.id
+  const removeFromCart = async(item)=>{
+    const clearItemCount= await cart.map((data)=>{
+      if(data.id==item.id){
+        data.qty=0
+      }
+      return data
     })
+    sessionStorage.setItem('cart',JSON.stringify(clearItemCount))
+    const filteredCart =await cart.filter((cartItem)=> {
+      return cartItem.id != item.id
+    })
+    sessionStorage.setItem('cart',JSON.stringify(filteredCart))
     setCart(filteredCart)
   }
-
+ 
   return (
     <div id='mainsection'>
       <store.Provider value={[contextData, setContextData,addToCart,cart,removeFromCart,total,setTotal]}>
