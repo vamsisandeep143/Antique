@@ -136,7 +136,7 @@ const Home = () => {
           </Styledh1>
         </Styleddiv>
 
-        <div className="page-title text-uppercase">Collections</div>
+        <div className="page-title text-uppercase">Vintage Curations</div>
         <div className="container home-card-coursel">
           <CardCousol />
         </div>
@@ -145,12 +145,12 @@ const Home = () => {
         <div className="container my-5 pb-5">
           <section className="about-design row">
             <div className="col-12 mt-4">
-              <div className="page-title">Why Choose Us?</div>
+              <div className="page-title">Why We’re Your Best Choice</div>
             </div>
             <div className="col-4" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
               <div className="custom-wrapper">
                 <img src={item1} alt="icon" className="h-icon" />
-                <h2>Authenticity Guaranteed</h2>
+                <h2>High quality Products</h2>
                 <p>
                   Each item in our collection is meticulously authenticated to ensure its historical significance and value.
                 </p>

@@ -4,6 +4,21 @@
     gap: 20px;
 }
 
+.Paginationdiv {
+position: relative;
+left:80%;
+display:flex;
+justify-content: space-between;
+max-width: fit-content;
+}
+
+.pagination .active a{
+    
+   background-color:  rgb(5, 93, 107) !important; 
+   border-color:rgb(5, 93, 107) !important; 
+
+}
+
 .tester {
     display: flex;
     flex-direction: column;

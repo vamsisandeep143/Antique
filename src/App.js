@@ -52,6 +52,7 @@ function App() {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0); 
    const addToCart = async(item,qty) => {
+    if(qty>0){
     const existingCart= await JSON.parse(sessionStorage.getItem('cart'))
     if(existingCart?.length){
       let itemExists = false;
@@ -71,6 +72,7 @@ function App() {
       
     }else{
       setCart((prevCart) => [...prevCart, {item,qty}]);
+    }
     }
   };
   const removeFromCart = async(item)=>{

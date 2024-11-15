@@ -1,27 +1,97 @@
 import React, { useContext, useEffect, useState } from "react";
+import app, { db } from "./Firebase";
 // import Tabs from '@mui/material/Tabs';
 // import Tab from '@mui/material/Tab';
 // import {CustomTab} from './CustomTab'
+import { getStorage, ref, listAll, getDownloadURL } from "firebase/storage";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Magnify from "./Magnify";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "./Firebase";
 import { Box, CircularProgress } from "@mui/material";
 import { toast } from "react-toastify";
 import Footer from "./Footer";
 import { store } from "../App";
 import ChooseAlternatives from "./ChooseAlternatives";
 
+const storage = getStorage();
+const StyledDiv = styled.div`
+display: flex;
+flex-direction:row;
+width:auto;
+border:1px solid #d3d3d3;
+margin:10px;
+margin-left:7px;
+margin-top: -15px;
+border-radius:10px;
+background-color:rgb(5, 93, 107);
+`;
+
 const ProductDetails = () => {
   const { productID } = useParams();
+  const [images, setImages] = useState([]);
   const [data, setData] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const [filteredItem, setFilteredItem] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isFavourite, setIsFavourite] = useState(false);
   const [, , addToCart] = useContext(store);
+  const [mainImage, setMainImage] = useState("");
+
   const navigate = useNavigate();
+  const additionalImages = [
+   ...images
+  ];
+
+  console.log('additionalImages',additionalImages);
+
+  // const fetchImagesFromFolders = async () => {
+  //   try {
+  //     const folderCollection = collection(db, "folders"); // Collection storing folder names
+  //     const folderSnapshot = await getDocs(folderCollection);
+  //     const folderNames = folderSnapshot.docs.map(doc => doc.data().name);
+  //     console.log(folderNames+"folderNames");
+
+  //     const allImages = [];
+
+  //     // for (const folderName of folderNames) {
+  //     //   const folderRef = ref(storage, `images/${folderName}`);
+  //     //   const folderItems = await listAll(folderRef);
+        
+  //     //   const folderImages = await Promise.all(
+  //     //     folderItems.items.map(item => getDownloadURL(item))
+  //     //   );
+
+  //     //   // Add images with folder context
+  //     //   allImages.push(...folderImages.map(url => ({ url, folder: folderName })));
+  //     // }
+
+  //     // setImages(allImages);
+  //   } catch (error) {
+  //     console.error("Error fetching images:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+
+  // const fetchImages = async () => {
+  //   const storage = getStorage(app);
+  //   const listRef = ref(storage, "images/");
+
+  //   try {
+  //     const res = await listAll(listRef);
+  //     const urls = await Promise.all(
+  //       res.items.map((item) => getDownloadURL(item))
+  //     );
+  //     // setImages(urls);
+  //     if (urls.length > 0) setMainImage(urls[0]);
+  //   } catch (error) {
+  //     console.error("Error fetching images:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
   const [, , , cart, removeFromCart, , setTotal] = useContext(store);
   const getData = async () => {
     const valRef = collection(db, "textData");
@@ -32,6 +102,10 @@ const ProductDetails = () => {
     } catch (error) {
       console.error("Error fetching data from Firestore:", error);
     }
+  };
+
+  const handleThumbnailHover = (imgUrl) => {
+    setMainImage(imgUrl);
   };
 
   useEffect(() => {
@@ -45,6 +119,8 @@ const ProductDetails = () => {
 
   useEffect(() => {
     getData();
+   
+   
   }, []);
 
   useEffect(() => {
@@ -60,10 +136,21 @@ const ProductDetails = () => {
         } else {
           setQuantity(1);
     }
+    if (filteredItem.imageUrls?.length > 0) {
+      setImages(filteredItem?.imageUrls);
+      setMainImage(filteredItem?.imageUrls[0]); // Set the first image as main
+    }
+    const arrImages=[]
+    filteredItem?.imageUrls?.map((url)=>arrImages.push(url))
+    setImages(arrImages)
       }
+
+
     };
+
   
     fetchData();
+    console.log(filteredItem,"111111111111111111")
   }, [filteredItem, cart]);
 
   const addToFavourites = () => {
@@ -148,7 +235,7 @@ const ProductDetails = () => {
         <section className="row">
           <div className="col-lg-6 col-md-6 text-center">
             <section className="w-100 position-relative mx-auto">
-              <Magnify imageURL={filteredItem?.imageUrl} />
+              <Magnify imageURL={mainImage} />
             </section>
           </div>
           <div className="col-lg-6 col-md-6">
@@ -232,6 +319,25 @@ const ProductDetails = () => {
               </div>
             </div>
           </div>
+          <StyledDiv>
+          {additionalImages.length > 0 ? (
+            additionalImages.map((imgUrl, index) => (
+              <img
+                width="50px"
+                height="50px"
+                key={index}
+                src={imgUrl}
+                alt={`Thumbnail ${index + 1}`}
+                onMouseEnter={() => handleThumbnailHover(imgUrl)}
+                style={{ cursor: "pointer", margin: "5px", border: "1px solid #d3d3d3" }}
+              />
+            ))
+          ) : (
+            <p>No additional images available.</p>
+          )}
+        </StyledDiv>
+
+         
         </section>
       </div>
       <section className="container">

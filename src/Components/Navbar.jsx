@@ -43,9 +43,11 @@ const StyledBtn = Styled(Button)`
 `;
 
 const Styledh1 = Styled.h3`
-font-family: 'Poppins', sans-serif;
+font-family: 'EB Garamond';
+ background: linear-gradient(90deg, black, brown);
+-webkit-background-clip: text;  
+-webkit-text-fill-color: transparent;
 font-weight:600;
-color:#ffffff;
 margin: 0px 8px !important;
 text-transform: uppercase;
 `;
@@ -299,7 +301,14 @@ const Navbar = () => {
                 }
               >
                 <p>About</p>
+                {/* <ShoppingCartIcon
+                  fontSize='large'
+                  sx={{ color: '#055d6b', cursor: 'pointer', fontSize: '30px' }}
+                  onClick={handleCart}
+                /> */}
               </StyledLink>
+              <StyledLink>
+              
               <motion.div className="mx-4"
                 whileHover={{ scale: 1.2 }}
                 onHoverStart={e => console.log('Hover start')}
@@ -311,6 +320,7 @@ const Navbar = () => {
                   onClick={handleCart}
                 />
               </motion.div>
+              </StyledLink>
             </StyledDiv1>
           </section>
         )}

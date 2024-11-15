@@ -27,6 +27,7 @@
     "react-dom": "^18.2.0",
     "react-image-magnify": "^2.7.4",
     "react-owl-carousel": "^2.3.3",
+    "react-paginate": "^8.2.0",
     "react-router": "^6.24.0",
     "react-router-dom": "^6.21.0",
     "react-scripts": "5.0.1",

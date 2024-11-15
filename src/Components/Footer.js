@@ -3,6 +3,9 @@ import Styled from "styled-components";
 import { NavLink} from "react-router-dom";
 import cclogo from "../Assets/CCLogo.png";
 import "./ContactUs.css";
+import Phone from '../Assets/phone.jpg';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 
 const StyledAnchor = Styled.a`  
   color:var(--text-color-white);
@@ -76,7 +79,7 @@ const Footer = () => {
               <div className="col-md-4">
                 <h2 className="footer-block__heading">Contact US</h2>
                 <StyledFooterP className="mb-2">
-                  Through Call - 416 887 2485
+                   <LocalPhoneIcon/> 416 887 2485
                 </StyledFooterP>
                 <StyledFooterP className="mb-2">Business Address</StyledFooterP>
                 <StyledFooterP className="mb-2">Burlington,</StyledFooterP>

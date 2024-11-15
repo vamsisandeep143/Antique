@@ -26,20 +26,99 @@ const CardCousol = ({filter}) => {
     const [loading, setLoading] = useState(true);
     const [data,setData]=useState([])
     const [filteredData,setFilteredData]=useState()
-    const fetchImages = async () => {
-        const storage = getStorage(app);
-        const listRef = ref(storage, 'images/');
+    // const fetchImages = async () => {
+    //     const storage = getStorage(app);
+    //     const listRef = ref(storage, 'images/');
 
-        try {
-            const res = await listAll(listRef);
-            const urls = await Promise.all(res.items.map(item => getDownloadURL(item)));
-            setImages(urls);
-        } catch (error) {
-            console.error('Error fetching images:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    //     try {
+    //         const res = await listAll(listRef);
+    //         const urls = await Promise.all(res.items.map(item => getDownloadURL(item)));
+    //         setImages(urls);
+    //     } catch (error) {
+    //         console.error('Error fetching images:', error);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
+    const fetchImagesAndData = async () => {
+      const storage = getStorage(app);
+      const allImages = [];
+      const valRef = collection(db, "textData");
+      const folderCollection = collection(db, "folders");
+      console.log("data");
+  
+      try {
+          // Fetch data from Firestore
+          const dataDb = await getDocs(valRef);
+          
+          const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
+          const imagesRef = ref(storage, "images");
+          const folderList = await listAll(imagesRef);
+  
+          console.log(JSON.stringify(folderList)+"folderList");
+  
+          // Fetch folder names
+          const folderSnapshot = await getDocs(folderCollection);
+          console.log(JSON.stringify(folderSnapshot.docs)+'data2')
+          const folderNames = folderSnapshot.docs.map(doc => doc.data().name);
+          console.log("data1"+folderNames);
+         
+  
+          // Loop through each folder and fetch images
+          for (const folderName of folderNames) {
+              const folderRef = ref(storage, `images/${folderName}`);
+              const folderItems = await listAll(folderRef);
+              console.log("data1"+folderItems);
+  
+              // const folderImages = await Promise.all(
+              //     folderItems.items.map(item => getDownloadURL(item))
+              // );
+              // List all folders in the 'images' directory
+           //   console.log(folderRef.prefixes,"folderref");
+      const folderList = await listAll(folderRef);
+  
+      for (const folderRef of folderList.prefixes) { // folderList.prefixes contains sub-folders
+        const folderName = folderRef.name;
+  
+        console.log("Found folder:", folderName);
+  
+        // List items (images) in each folder
+        const folderItems = await listAll(folderRef);
+        console.log(`Items in Folder ${folderName}:`, folderItems);
+  
+        const folderImages = await Promise.all(
+          folderItems.items.map((item) => getDownloadURL(item))
+        );
+  
+        // Add images with folder context
+        allImages.push(...folderImages.map((url) => ({ url, folder: folderName })));
+      }
+  
+              // Add images with folder context
+              //console.log("folder Items"+folderImages.url);
+             // allImages.push(...folderImages.map(url => ({ url, folder: folderName })));
+          }
+  
+          // Combine images and data
+          const updatedData = allData.map((item, index) => ({
+              ...item,
+              imageUrl: allImages[index]?.url || "", // Add the image URL to each item
+              folder: allImages[index]?.folder || "", // Add folder information
+          }));
+  
+          console.log(updatedData+"updatedData")
+  
+          setData(updatedData);
+          setFilteredData(updatedData);
+        //  setFilteredImages(updatedData);
+      } catch (error) {
+          console.error("Error fetching data or images:", error);
+      } finally {
+          setLoading(false);
+      }
+  };
+  
     const getData = async () => {
       const valRef = collection(db, 'textData');
       try {
@@ -66,7 +145,7 @@ const CardCousol = ({filter}) => {
   };
 
     useEffect(() => {
-        fetchImages();
+        fetchImagesAndData();
         getData()
     }, [productID]);
   return (
@@ -149,7 +228,7 @@ const CardCousol = ({filter}) => {
                 >
                   <img
                     class="card-img-top"
-                    src={item.imageUrl}
+                    src={item.imageUrls}
                     alt="Card image cap"
                     style={{
                       width: "100%",

@@ -18,23 +18,130 @@ const Blogs = () => {
   const [activeButton, setActiveButton] = useState("");
   const navigate = useNavigate();
 
-  const fetchImages = async () => {
+  const fetchImagesAndData = async () => {
     const storage = getStorage(app);
-    const listRef = ref(storage, "images/");
+    const allImages = [];
+    const valRef = collection(db, "textData");
+    const folderCollection = collection(db, "folders");
+    console.log("data");
 
     try {
-      const res = await listAll(listRef);
-      const urls = await Promise.all(
-        res.items.map((item) => getDownloadURL(item))
-      );
-      setImages(urls);
-    } catch (error) {
-      console.error("Error fetching images:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        // Fetch data from Firestore
+        const dataDb = await getDocs(valRef);
+        
+        const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
+        const imagesRef = ref(storage, "images");
+        const folderList = await listAll(imagesRef);
 
+        console.log(JSON.stringify(folderList)+"folderList");
+
+        // Fetch folder names
+        const folderSnapshot = await getDocs(folderCollection);
+        console.log(JSON.stringify(folderSnapshot.docs)+'data2')
+        const folderNames = folderSnapshot.docs.map(doc => doc.data().name);
+        console.log("data1"+folderNames);
+       
+
+        // Loop through each folder and fetch images
+        for (const folderName of folderNames) {
+            const folderRef = ref(storage, `images/${folderName}`);
+            const folderItems = await listAll(folderRef);
+            console.log("data1"+folderItems);
+
+            // const folderImages = await Promise.all(
+            //     folderItems.items.map(item => getDownloadURL(item))
+            // );
+            // List all folders in the 'images' directory
+         //   console.log(folderRef.prefixes,"folderref");
+    const folderList = await listAll(folderRef);
+
+    for (const folderRef of folderList.prefixes) { // folderList.prefixes contains sub-folders
+      const folderName = folderRef.name;
+
+      console.log("Found folder:", folderName);
+
+      // List items (images) in each folder
+      const folderItems = await listAll(folderRef);
+      console.log(`Items in Folder ${folderName}:`, folderItems);
+
+      const folderImages = await Promise.all(
+        folderItems.items.map((item) => getDownloadURL(item))
+      );
+
+      // Add images with folder context
+      allImages.push(...folderImages.map((url) => ({ url, folder: folderName })));
+    }
+
+            // Add images with folder context
+            //console.log("folder Items"+folderImages.url);
+           // allImages.push(...folderImages.map(url => ({ url, folder: folderName })));
+        }
+
+        // Combine images and data
+        const updatedData = allData.map((item, index) => ({
+            ...item,
+            imageUrl: allImages[index]?.url || "", // Add the image URL to each item
+            folder: allImages[index]?.folder || "", // Add folder information
+        }));
+
+        console.log(updatedData+"updatedData")
+
+        setData(updatedData);
+        setFilteredData(updatedData);
+       // setFilteredImages(updatedData);
+    } catch (error) {
+        console.error("Error fetching data or images:", error);
+    } finally {
+        setLoading(false);
+    }
+};
+
+// const fetchImagesAndData = async () => {
+//   const storage = getStorage(app);
+//   const allImages = [];
+
+//   try {
+//     // Reference to the 'images' directory
+//     const valRef = collection(db, "textData");
+//     const imagesRef = ref(storage, "images");
+
+//     const dataDb = await getDocs(valRef);
+//     const allData = dataDb.docs.map((val) => ({ ...val.data(), id: val.id }));
+
+//     // List all folders in the 'images' directory
+//     const folderList = await listAll(imagesRef);
+
+//     for (const folderRef of folderList.prefixes) { // folderList.prefixes contains sub-folders
+//       const folderName = folderRef.name;
+//       console.log("Found folder:", folderName);
+
+//       // List items (images) in each folder
+//       const folderItems = await listAll(folderRef);
+//       console.log(`Items in Folder ${folderName}:`, folderItems);
+
+//       const folderImages = await Promise.all(
+//         folderItems.items.map((item) => getDownloadURL(item))
+//       );
+
+//       // Add images with folder context
+//       allImages.push(...folderImages.map((url) => ({ url, folder: folderName })));
+//     }
+
+//     // Here you can combine allImages with your other data if needed
+//     setData(allImages);
+//     setFilteredData(allImages);
+//     setFilteredImages(allImages);
+//   } catch (error) {
+//     console.error("Error fetching images from Firebase Storage:", error);
+//   } finally {
+//     setLoading(false);
+//   }
+// };
+
+
+  useEffect(() => {
+    fetchImagesAndData();
+  }, []);
   const getData = async () => {
     const valRef = collection(db, "textData");
     try {
@@ -63,7 +170,7 @@ const Blogs = () => {
   };
   
   useEffect(() => {
-    fetchImages();
+    
     getData();  // Load data on component mount
   }, []);
   
@@ -222,7 +329,7 @@ const Blogs = () => {
                   >
                     <Item>
                       <img
-                        src={item.imageUrl}
+                        src={item.imageUrls}
                         alt={index}
                         style={{
                           width: "100%",
