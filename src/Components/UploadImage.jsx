@@ -210,7 +210,7 @@ const UploadImage = () => {
 
       await updateDoc(docRef, {
         txtVal: editData.txtVal,
-        imageUrls: editData.imageUrls,
+      // imageUrls: editData.imageUrls,
       });
 
       setData((prevData) =>
@@ -517,8 +517,8 @@ const UploadImage = () => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Update your Antique details
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          <Typography id="modal-modal-description" sx={{ mt: 2 ,color:'#ffffff'}}>
+            Edit the below fields
           </Typography>
 
                <InputLabel id="demo-simple-select-label">Antique</InputLabel>
@@ -535,15 +535,74 @@ const UploadImage = () => {
                 <MenuItem value={"Furniture"}>Furniture</MenuItem>
                 <MenuItem value={"Painting"}>Painting</MenuItem>
               </Select>
-              <div>
+              <div className="mt-4">
                 <InputLabel id="demo-simple-select-label">Price</InputLabel>
+                <div className="mb-4">
                 <input
                    type="number"
                    value={editData.txtVal?.originalPrice || ""}
                    onChange={(e) => handleEditChange("originalPrice", e.target.value)}
                  />
                  </div>
-                 <Button onClick={() => handleUpdate(value.id)} variant="contained">
+                 </div>
+                 <div className="row mb-4">
+                <div className="mb-4">
+                <InputLabel id="demo-simple-select-label">Discount Price</InputLabel>
+                </div>
+                <div>
+                  <input
+                    type="number"
+                    name="price"
+                    value={editData.txtVal?.discountPrice || ""}
+                    className="custom-input"
+                    onChange={(e) => handleEditChange("discountPrice", e.target.value)}
+                  />
+                  </div>
+                
+              </div>
+              <div className="row mb-4">
+                <div className="col-6">
+                <InputLabel >description</InputLabel>
+                </div>
+                <div>
+                  <input
+                    type="textarea"
+                    name="description"
+                    value={editData.txtVal?.description || ""}
+                    className="custom-input"
+                    onChange={(e) => handleEditChange("description", e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="row mb-4">
+                <div className="col-6">
+                <InputLabel >Weight in lbs</InputLabel>
+                </div>
+                <div >
+                  <input
+                    type="text"
+                    name="Weight"
+                    value={editData.txtVal?.weight}
+                    className="custom-input"
+                    onChange={(e) => handleEditChange("weight", e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="row ">
+                <div >
+                <InputLabel>Height in Inches</InputLabel>
+                </div>
+                </div>
+                <div >
+                  <input
+                    type="text"
+                    name="height"
+                    value={editData.txtVal?.height}
+                    className="custom-input"
+                    onChange={(e) => handleEditChange("height", e.target.value)}
+                  />
+                </div>
+                 <Button onClick={() => handleUpdate(value.id)} variant="contained" className="m-4">
                    Save
                  </Button>
         </Box>
